@@ -1,8 +1,15 @@
 -r app.txt
-invoke==1.2.0
-pytest==5.2.0
-pytest-asyncio==0.10.0
+-r install.txt
+
+pip-tools==5.4.0
+
+pytest>=7.4.4
+pytest-asyncio>=0.21.0
 pytest-mock==1.10.3
 pytest-flakes==4.0.0
-pytest-pythonpath==0.7.3
-pip-tools==5.1.2
+pytest-flake8==1.0.6
+pytest-forked==1.6.0
+pytest-mypy==0.6.2
+pytest-ordering==0.6
+pytest-rerunfailures==10.2
+pytest-xdist==3.5.0

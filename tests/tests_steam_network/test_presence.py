@@ -8,7 +8,8 @@ from galaxy.api.types import UserPresence
 
 from steam_network.presence import presence_from_user_info
 from steam_network.protocol.consts import EPersonaState
-from steam_network.protocol.types import ProtoUserInfo
+from steam_network.protocol.steam_types import ProtoUserInfo
+from .pytest_asyncio_helpers import resolve_async_fixture
 
 
 class TOKEN(NamedTuple):
@@ -95,14 +96,16 @@ CONTEXT = {
 
 @pytest.mark.asyncio
 async def test_not_authenticated(plugin):
+    plugin_instance = await resolve_async_fixture(plugin)
     with pytest.raises(AuthenticationRequired):
-        await plugin.get_friends()
+        await plugin_instance.get_friends()
 
 
 @pytest.mark.asyncio
 async def test_prepare_user_presence_context(authenticated_plugin, websocket_client):
+    plugin_instance = await resolve_async_fixture(authenticated_plugin)
     websocket_client.get_friends_info.return_value = CONTEXT
-    assert await authenticated_plugin.prepare_user_presence_context(
+    assert await plugin_instance.prepare_user_presence_context(
         ["76561198040630463", "76561198053830887"]
     ) == CONTEXT
     websocket_client.get_friends_info.assert_called_once_with(["76561198040630463", "76561198053830887"])
@@ -110,23 +113,25 @@ async def test_prepare_user_presence_context(authenticated_plugin, websocket_cli
 
 @pytest.mark.asyncio
 async def test_get_user_presence_success(authenticated_plugin, websocket_client):
-    presence = await authenticated_plugin.get_user_presence("76561198040630463", CONTEXT)
+    plugin_instance = await resolve_async_fixture(authenticated_plugin)
+    presence = await plugin_instance.get_user_presence("76561198040630463", CONTEXT)
     assert presence == UserPresence(presence_state=PresenceState.Offline)
 
-    presence = await authenticated_plugin.get_user_presence("76561198053830887", CONTEXT)
+    presence = await plugin_instance.get_user_presence("76561198053830887", CONTEXT)
     assert presence == UserPresence(presence_state=PresenceState.Online, game_id="124523113")
 
-    presence = await authenticated_plugin.get_user_presence("76561198053830888", CONTEXT)
+    presence = await plugin_instance.get_user_presence("76561198053830888", CONTEXT)
     assert presence == UserPresence(presence_state=PresenceState.Online, game_id="123321", game_title="abc", in_game_status=None)
 
-    presence = await authenticated_plugin.get_user_presence("76561198053830889", CONTEXT)
+    presence = await plugin_instance.get_user_presence("76561198053830889", CONTEXT)
     assert presence == UserPresence(presence_state=PresenceState.Online, game_id="123321", game_title="abc", in_game_status='menuSimple')
 
 
 @pytest.mark.asyncio
 async def test_get_user_presence_not_friend(authenticated_plugin, websocket_client):
+    plugin_instance = await resolve_async_fixture(authenticated_plugin)
     with pytest.raises(UnknownError):
-        await authenticated_plugin.get_user_presence("123151", {})
+        await plugin_instance.get_user_presence("123151", {})
 
 
 

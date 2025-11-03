@@ -5,7 +5,7 @@ import socket
 
 import pytest
 
-TIMEOUT = 5.0
+TIMEOUT = 15.0
 
 class TCPServer:
     def __init__(self, bind_interface="0.0.0.0", bind_port=0):

@@ -1,7 +1,29 @@
-__version__ = "1.0.2"
+__version__ = "1.1"
 __changelog__ = {
+    "1.1": """
+    - Fixes authorization flow after Steam changed their auth flow
+    - Fixes issues on large game libraries
+    - Add protobuf download and generation script
+    - Changes based on https://github.com/FriendsOfGalaxy/galaxy-integration-steam/pull/171
+    """,
     "unreleased": '''
     ''',
+    "1.0.7": """
+    - Fixes issues when SteamGuard is disabled. Made it so 2FA codes would ignore leading or trailing whitespace.
+    - Code cleanup
+    """,
+    "1.0.6": """
+    - reintroduces password santization so users with long passwords or illegal characters can log in as intended
+    - Code cleanup
+    """,
+    "1.0.5": """
+    - implemented a temporary fix to make the receive loop only send off a few jobs before stopping to receive a message, instead of doing all the jobs at once.
+    """,
+    "1.0.4": """
+    - refreshed python generated protobuf files
+    - removed public profiles `backend`. The new auth flow makes it irrelevant.
+    - implemented new auth flow.
+    """,
     "1.0.2": """
     - refreshed python generated protobuf files
     - handle eresult 48: `TryWithDifferentCM` on every login attempt

@@ -14,7 +14,7 @@ class SteamHttpClient:
         self._http_client = http_client
 
     async def get_servers(self, cell_id) -> List[str]:
-        url = f"http://api.steampowered.com/ISteamDirectory/GetCMList/v1/?cellid={cell_id}"
+        url = f"https://api.steampowered.com/ISteamDirectory/GetCMList/v1/?cellid={cell_id}"
         response = await self._http_client.get(url)
         try:
             data = await response.json()

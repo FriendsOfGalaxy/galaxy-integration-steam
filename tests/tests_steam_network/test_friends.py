@@ -2,26 +2,30 @@ from galaxy.api.types import UserInfo
 from galaxy.api.errors import AuthenticationRequired
 import pytest
 
-from steam_network.protocol.types import ProtoUserInfo, EPersonaState
+from steam_network.protocol.steam_types import ProtoUserInfo, EPersonaState
+from .pytest_asyncio_helpers import resolve_async_fixture
 
 
 @pytest.mark.asyncio
 async def test_not_authenticated(plugin):
+    plugin_instance = await resolve_async_fixture(plugin)
     with pytest.raises(AuthenticationRequired):
-        await plugin.get_friends()
+        await plugin_instance.get_friends()
 
 
 @pytest.mark.asyncio
 async def test_no_friends(authenticated_plugin, websocket_client):
+    plugin_instance = await resolve_async_fixture(authenticated_plugin)
     websocket_client.get_friends.return_value = []
     websocket_client.get_friends_info.return_value = {}
     websocket_client.get_friends_nicknames.return_values = {}
 
-    assert [] == await authenticated_plugin.get_friends()
+    assert [] == await plugin_instance.get_friends()
 
 
 @pytest.mark.asyncio
 async def test_multiple_friends(authenticated_plugin, websocket_client):
+    plugin_instance = await resolve_async_fixture(authenticated_plugin)
     ids = ["76561198040630463", "76561198053830887"]
     websocket_client.get_friends.return_value = ids
     websocket_client.get_friends_info.return_value = {
@@ -43,7 +47,7 @@ async def test_multiple_friends(authenticated_plugin, websocket_client):
         ),
     }
     websocket_client.get_friends_nicknames.return_value = {}
-    result = await authenticated_plugin.get_friends()
+    result = await plugin_instance.get_friends()
     assert result == [
         UserInfo(
             "76561198040630463",
@@ -64,6 +68,7 @@ async def test_multiple_friends(authenticated_plugin, websocket_client):
 
 @pytest.mark.asyncio
 async def test_multiple_friends_with_nicknames(authenticated_plugin, websocket_client):
+    plugin_instance = await resolve_async_fixture(authenticated_plugin)
     ids = ["76561198040630463", "76561198053830887"]
     websocket_client.get_friends.return_value = ids
     websocket_client.get_friends_info.return_value = {
@@ -87,7 +92,7 @@ async def test_multiple_friends_with_nicknames(authenticated_plugin, websocket_c
     websocket_client.get_friends_nicknames.return_value = {
         "76561198053830887": "nickname"
     }
-    result = await authenticated_plugin.get_friends()
+    result = await plugin_instance.get_friends()
     assert result == [
         UserInfo(
             "76561198040630463",

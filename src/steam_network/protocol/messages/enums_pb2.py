@@ -4,6 +4,7 @@
 """Generated protocol buffer code."""
 from google.protobuf.internal import enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
+from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
@@ -12,736 +13,158 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-import steammessages_base_pb2 as steammessages__base__pb2
 
 
-DESCRIPTOR = _descriptor.FileDescriptor(
-  name='enums.proto',
-  package='',
-  syntax='proto2',
-  serialized_options=b'H\001\220\001\001\200\265\030\001',
-  create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0b\x65nums.proto\x1a\x18steammessages_base.proto*\x80\n\n\x17\x45PublishedFileQueryType\x12)\n%k_PublishedFileQueryType_RankedByVote\x10\x00\x12\x34\n0k_PublishedFileQueryType_RankedByPublicationDate\x10\x01\x12\x42\n>k_PublishedFileQueryType_AcceptedForGameRankedByAcceptanceDate\x10\x02\x12*\n&k_PublishedFileQueryType_RankedByTrend\x10\x03\x12\x46\nBk_PublishedFileQueryType_FavoritedByFriendsRankedByPublicationDate\x10\x04\x12\x44\n@k_PublishedFileQueryType_CreatedByFriendsRankedByPublicationDate\x10\x05\x12\x35\n1k_PublishedFileQueryType_RankedByNumTimesReported\x10\x06\x12J\nFk_PublishedFileQueryType_CreatedByFollowedUsersRankedByPublicationDate\x10\x07\x12(\n$k_PublishedFileQueryType_NotYetRated\x10\x08\x12=\n9k_PublishedFileQueryType_RankedByTotalUniqueSubscriptions\x10\t\x12\x32\n.k_PublishedFileQueryType_RankedByTotalVotesAsc\x10\n\x12,\n(k_PublishedFileQueryType_RankedByVotesUp\x10\x0b\x12/\n+k_PublishedFileQueryType_RankedByTextSearch\x10\x0c\x12\x32\n.k_PublishedFileQueryType_RankedByPlaytimeTrend\x10\r\x12\x32\n.k_PublishedFileQueryType_RankedByTotalPlaytime\x10\x0e\x12\x39\n5k_PublishedFileQueryType_RankedByAveragePlaytimeTrend\x10\x0f\x12<\n8k_PublishedFileQueryType_RankedByLifetimeAveragePlaytime\x10\x10\x12:\n6k_PublishedFileQueryType_RankedByPlaytimeSessionsTrend\x10\x11\x12=\n9k_PublishedFileQueryType_RankedByLifetimePlaytimeSessions\x10\x12\x12?\n;k_PublishedFileQueryType_RankedByInappropriateContentRating\x10\x13\x12\x34\n0k_PublishedFileQueryType_RankedByBanContentCheck\x10\x14\x12\x34\n0k_PublishedFileQueryType_RankedByLastUpdatedDate\x10\x15*\xbc\x01\n#EPublishedFileInappropriateProvider\x12\x31\n-k_EPublishedFileInappropriateProvider_Invalid\x10\x00\x12\x30\n,k_EPublishedFileInappropriateProvider_Google\x10\x01\x12\x30\n,k_EPublishedFileInappropriateProvider_Amazon\x10\x02*\xd5\x02\n!EPublishedFileInappropriateResult\x12\x32\n.k_EPublishedFileInappropriateResult_NotScanned\x10\x00\x12\x34\n0k_EPublishedFileInappropriateResult_VeryUnlikely\x10\x01\x12\x30\n,k_EPublishedFileInappropriateResult_Unlikely\x10\x1e\x12\x30\n,k_EPublishedFileInappropriateResult_Possible\x10\x32\x12.\n*k_EPublishedFileInappropriateResult_Likely\x10K\x12\x32\n.k_EPublishedFileInappropriateResult_VeryLikely\x10\x64*\xb1\x03\n\x11\x45PersonaStateFlag\x12\'\n#k_EPersonaStateFlag_HasRichPresence\x10\x01\x12&\n\"k_EPersonaStateFlag_InJoinableGame\x10\x02\x12\x1e\n\x1ak_EPersonaStateFlag_Golden\x10\x04\x12*\n&k_EPersonaStateFlag_RemotePlayTogether\x10\x08\x12&\n!k_EPersonaStateFlag_ClientTypeWeb\x10\x80\x02\x12)\n$k_EPersonaStateFlag_ClientTypeMobile\x10\x80\x04\x12*\n%k_EPersonaStateFlag_ClientTypeTenfoot\x10\x80\x08\x12%\n k_EPersonaStateFlag_ClientTypeVR\x10\x80\x10\x12*\n%k_EPersonaStateFlag_LaunchTypeGamepad\x10\x80 \x12-\n(k_EPersonaStateFlag_LaunchTypeCompatTool\x10\x80@*\xa7\x01\n\x15\x45\x43ontentCheckProvider\x12#\n\x1fk_EContentCheckProvider_Invalid\x10\x00\x12\"\n\x1ek_EContentCheckProvider_Google\x10\x01\x12\"\n\x1ek_EContentCheckProvider_Amazon\x10\x02\x12!\n\x1dk_EContentCheckProvider_Local\x10\x03*\xd8\x02\n\x16\x45\x42\x61nContentCheckResult\x12\'\n#k_EBanContentCheckResult_NotScanned\x10\x00\x12\"\n\x1ek_EBanContentCheckResult_Reset\x10\x01\x12*\n&k_EBanContentCheckResult_NeedsChecking\x10\x02\x12)\n%k_EBanContentCheckResult_VeryUnlikely\x10\x05\x12%\n!k_EBanContentCheckResult_Unlikely\x10\x1e\x12%\n!k_EBanContentCheckResult_Possible\x10\x32\x12#\n\x1fk_EBanContentCheckResult_Likely\x10K\x12\'\n#k_EBanContentCheckResult_VeryLikely\x10\x64*\xec\x08\n\x19\x45ProfileCustomizationType\x12&\n\"k_EProfileCustomizationTypeInvalid\x10\x00\x12\x36\n2k_EProfileCustomizationTypeRareAchievementShowcase\x10\x01\x12,\n(k_EProfileCustomizationTypeGameCollector\x10\x02\x12+\n\'k_EProfileCustomizationTypeItemShowcase\x10\x03\x12,\n(k_EProfileCustomizationTypeTradeShowcase\x10\x04\x12%\n!k_EProfileCustomizationTypeBadges\x10\x05\x12+\n\'k_EProfileCustomizationTypeFavoriteGame\x10\x06\x12\x31\n-k_EProfileCustomizationTypeScreenshotShowcase\x10\x07\x12)\n%k_EProfileCustomizationTypeCustomText\x10\x08\x12,\n(k_EProfileCustomizationTypeFavoriteGroup\x10\t\x12-\n)k_EProfileCustomizationTypeRecommendation\x10\n\x12+\n\'k_EProfileCustomizationTypeWorkshopItem\x10\x0b\x12)\n%k_EProfileCustomizationTypeMyWorkshop\x10\x0c\x12.\n*k_EProfileCustomizationTypeArtworkShowcase\x10\r\x12,\n(k_EProfileCustomizationTypeVideoShowcase\x10\x0e\x12%\n!k_EProfileCustomizationTypeGuides\x10\x0f\x12\'\n#k_EProfileCustomizationTypeMyGuides\x10\x10\x12+\n\'k_EProfileCustomizationTypeAchievements\x10\x11\x12)\n%k_EProfileCustomizationTypeGreenlight\x10\x12\x12+\n\'k_EProfileCustomizationTypeMyGreenlight\x10\x13\x12%\n!k_EProfileCustomizationTypeSalien\x10\x14\x12\x35\n1k_EProfileCustomizationTypeLoyaltyRewardReactions\x10\x15\x12\x34\n0k_EProfileCustomizationTypeSingleArtworkShowcase\x10\x16\x12\x38\n4k_EProfileCustomizationTypeAchievementsCompletionist\x10\x17*\xc8\x01\n\x1b\x45PublishedFileStorageSystem\x12(\n$k_EPublishedFileStorageSystemInvalid\x10\x00\x12,\n(k_EPublishedFileStorageSystemLegacyCloud\x10\x01\x12&\n\"k_EPublishedFileStorageSystemDepot\x10\x02\x12)\n%k_EPublishedFileStorageSystemUGCCloud\x10\x03*\x97\x01\n\x19\x45\x43loudStoragePersistState\x12(\n$k_ECloudStoragePersistStatePersisted\x10\x00\x12(\n$k_ECloudStoragePersistStateForgotten\x10\x01\x12&\n\"k_ECloudStoragePersistStateDeleted\x10\x02*\xc0\x03\n\x14\x45\x42luetoothDeviceType\x12!\n\x1dk_BluetoothDeviceType_Invalid\x10\x00\x12!\n\x1dk_BluetoothDeviceType_Unknown\x10\x01\x12\x1f\n\x1bk_BluetoothDeviceType_Phone\x10\x02\x12\"\n\x1ek_BluetoothDeviceType_Computer\x10\x03\x12!\n\x1dk_BluetoothDeviceType_Headset\x10\x04\x12$\n k_BluetoothDeviceType_Headphones\x10\x05\x12\"\n\x1ek_BluetoothDeviceType_Speakers\x10\x06\x12$\n k_BluetoothDeviceType_OtherAudio\x10\x07\x12\x1f\n\x1bk_BluetoothDeviceType_Mouse\x10\x08\x12\"\n\x1ek_BluetoothDeviceType_Joystick\x10\t\x12!\n\x1dk_BluetoothDeviceType_Gamepad\x10\n\x12\"\n\x1ek_BluetoothDeviceType_Keyboard\x10\x0b*\xe1\x01\n\x18\x45StorageBlockContentType\x12&\n\"k_EStorageBlockContentType_Invalid\x10\x00\x12&\n\"k_EStorageBlockContentType_Unknown\x10\x01\x12)\n%k_EStorageBlockContentType_FileSystem\x10\x02\x12%\n!k_EStorageBlockContentType_Crypto\x10\x03\x12#\n\x1fk_EStorageBlockContentType_Raid\x10\x04*\xc3\x01\n\x1b\x45StorageBlockFileSystemType\x12)\n%k_EStorageBlockFileSystemType_Invalid\x10\x00\x12)\n%k_EStorageBlockFileSystemType_Unknown\x10\x01\x12&\n\"k_EStorageBlockFileSystemType_VFat\x10\x02\x12&\n\"k_EStorageBlockFileSystemType_Ext4\x10\x03\x42\tH\x01\x90\x01\x01\x80\xb5\x18\x01'
-  ,
-  dependencies=[steammessages__base__pb2.DESCRIPTOR,])
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0b\x65nums.proto*\x80\n\n\x17\x45PublishedFileQueryType\x12)\n%k_PublishedFileQueryType_RankedByVote\x10\x00\x12\x34\n0k_PublishedFileQueryType_RankedByPublicationDate\x10\x01\x12\x42\n>k_PublishedFileQueryType_AcceptedForGameRankedByAcceptanceDate\x10\x02\x12*\n&k_PublishedFileQueryType_RankedByTrend\x10\x03\x12\x46\nBk_PublishedFileQueryType_FavoritedByFriendsRankedByPublicationDate\x10\x04\x12\x44\n@k_PublishedFileQueryType_CreatedByFriendsRankedByPublicationDate\x10\x05\x12\x35\n1k_PublishedFileQueryType_RankedByNumTimesReported\x10\x06\x12J\nFk_PublishedFileQueryType_CreatedByFollowedUsersRankedByPublicationDate\x10\x07\x12(\n$k_PublishedFileQueryType_NotYetRated\x10\x08\x12=\n9k_PublishedFileQueryType_RankedByTotalUniqueSubscriptions\x10\t\x12\x32\n.k_PublishedFileQueryType_RankedByTotalVotesAsc\x10\n\x12,\n(k_PublishedFileQueryType_RankedByVotesUp\x10\x0b\x12/\n+k_PublishedFileQueryType_RankedByTextSearch\x10\x0c\x12\x32\n.k_PublishedFileQueryType_RankedByPlaytimeTrend\x10\r\x12\x32\n.k_PublishedFileQueryType_RankedByTotalPlaytime\x10\x0e\x12\x39\n5k_PublishedFileQueryType_RankedByAveragePlaytimeTrend\x10\x0f\x12<\n8k_PublishedFileQueryType_RankedByLifetimeAveragePlaytime\x10\x10\x12:\n6k_PublishedFileQueryType_RankedByPlaytimeSessionsTrend\x10\x11\x12=\n9k_PublishedFileQueryType_RankedByLifetimePlaytimeSessions\x10\x12\x12?\n;k_PublishedFileQueryType_RankedByInappropriateContentRating\x10\x13\x12\x34\n0k_PublishedFileQueryType_RankedByBanContentCheck\x10\x14\x12\x34\n0k_PublishedFileQueryType_RankedByLastUpdatedDate\x10\x15*\xbc\x01\n#EPublishedFileInappropriateProvider\x12\x31\n-k_EPublishedFileInappropriateProvider_Invalid\x10\x00\x12\x30\n,k_EPublishedFileInappropriateProvider_Google\x10\x01\x12\x30\n,k_EPublishedFileInappropriateProvider_Amazon\x10\x02*\xd5\x02\n!EPublishedFileInappropriateResult\x12\x32\n.k_EPublishedFileInappropriateResult_NotScanned\x10\x00\x12\x34\n0k_EPublishedFileInappropriateResult_VeryUnlikely\x10\x01\x12\x30\n,k_EPublishedFileInappropriateResult_Unlikely\x10\x1e\x12\x30\n,k_EPublishedFileInappropriateResult_Possible\x10\x32\x12.\n*k_EPublishedFileInappropriateResult_Likely\x10K\x12\x32\n.k_EPublishedFileInappropriateResult_VeryLikely\x10\x64*\xb1\x03\n\x11\x45PersonaStateFlag\x12\'\n#k_EPersonaStateFlag_HasRichPresence\x10\x01\x12&\n\"k_EPersonaStateFlag_InJoinableGame\x10\x02\x12\x1e\n\x1ak_EPersonaStateFlag_Golden\x10\x04\x12*\n&k_EPersonaStateFlag_RemotePlayTogether\x10\x08\x12&\n!k_EPersonaStateFlag_ClientTypeWeb\x10\x80\x02\x12)\n$k_EPersonaStateFlag_ClientTypeMobile\x10\x80\x04\x12*\n%k_EPersonaStateFlag_ClientTypeTenfoot\x10\x80\x08\x12%\n k_EPersonaStateFlag_ClientTypeVR\x10\x80\x10\x12*\n%k_EPersonaStateFlag_LaunchTypeGamepad\x10\x80 \x12-\n(k_EPersonaStateFlag_LaunchTypeCompatTool\x10\x80@*\xb0\x02\n\x15\x45\x43ontentCheckProvider\x12#\n\x1fk_EContentCheckProvider_Invalid\x10\x00\x12-\n)k_EContentCheckProvider_Google_DEPRECATED\x10\x01\x12\"\n\x1ek_EContentCheckProvider_Amazon\x10\x02\x12!\n\x1dk_EContentCheckProvider_Local\x10\x03\x12*\n&k_EContentCheckProvider_GoogleVertexAI\x10\x04\x12(\n$k_EContentCheckProvider_GoogleGemini\x10\x05\x12&\n\"k_EContentCheckProvider_SteamLearn\x10\x06*\x93\t\n\x19\x45ProfileCustomizationType\x12&\n\"k_EProfileCustomizationTypeInvalid\x10\x00\x12\x36\n2k_EProfileCustomizationTypeRareAchievementShowcase\x10\x01\x12,\n(k_EProfileCustomizationTypeGameCollector\x10\x02\x12+\n\'k_EProfileCustomizationTypeItemShowcase\x10\x03\x12,\n(k_EProfileCustomizationTypeTradeShowcase\x10\x04\x12%\n!k_EProfileCustomizationTypeBadges\x10\x05\x12+\n\'k_EProfileCustomizationTypeFavoriteGame\x10\x06\x12\x31\n-k_EProfileCustomizationTypeScreenshotShowcase\x10\x07\x12)\n%k_EProfileCustomizationTypeCustomText\x10\x08\x12,\n(k_EProfileCustomizationTypeFavoriteGroup\x10\t\x12-\n)k_EProfileCustomizationTypeRecommendation\x10\n\x12+\n\'k_EProfileCustomizationTypeWorkshopItem\x10\x0b\x12)\n%k_EProfileCustomizationTypeMyWorkshop\x10\x0c\x12.\n*k_EProfileCustomizationTypeArtworkShowcase\x10\r\x12,\n(k_EProfileCustomizationTypeVideoShowcase\x10\x0e\x12%\n!k_EProfileCustomizationTypeGuides\x10\x0f\x12\'\n#k_EProfileCustomizationTypeMyGuides\x10\x10\x12+\n\'k_EProfileCustomizationTypeAchievements\x10\x11\x12)\n%k_EProfileCustomizationTypeGreenlight\x10\x12\x12+\n\'k_EProfileCustomizationTypeMyGreenlight\x10\x13\x12%\n!k_EProfileCustomizationTypeSalien\x10\x14\x12\x35\n1k_EProfileCustomizationTypeLoyaltyRewardReactions\x10\x15\x12\x34\n0k_EProfileCustomizationTypeSingleArtworkShowcase\x10\x16\x12\x38\n4k_EProfileCustomizationTypeAchievementsCompletionist\x10\x17\x12%\n!k_EProfileCustomizationTypeReplay\x10\x18*\xc8\x01\n\x1b\x45PublishedFileStorageSystem\x12(\n$k_EPublishedFileStorageSystemInvalid\x10\x00\x12,\n(k_EPublishedFileStorageSystemLegacyCloud\x10\x01\x12&\n\"k_EPublishedFileStorageSystemDepot\x10\x02\x12)\n%k_EPublishedFileStorageSystemUGCCloud\x10\x03*\x97\x01\n\x19\x45\x43loudStoragePersistState\x12(\n$k_ECloudStoragePersistStatePersisted\x10\x00\x12(\n$k_ECloudStoragePersistStateForgotten\x10\x01\x12&\n\"k_ECloudStoragePersistStateDeleted\x10\x02*\xe8\x01\n\x12\x45SDCardFormatStage\x12 \n\x1ck_ESDCardFormatStage_Invalid\x10\x00\x12!\n\x1dk_ESDCardFormatStage_Starting\x10\x01\x12 \n\x1ck_ESDCardFormatStage_Testing\x10\x02\x12!\n\x1dk_ESDCardFormatStage_Rescuing\x10\x03\x12#\n\x1fk_ESDCardFormatStage_Formatting\x10\x04\x12#\n\x1fk_ESDCardFormatStage_Finalizing\x10\x05*\x95\x02\n\x13\x45StorageFormatStage\x12!\n\x1dk_EStorageFormatStage_Invalid\x10\x00\x12$\n k_EStorageFormatStage_NotRunning\x10\x01\x12\"\n\x1ek_EStorageFormatStage_Starting\x10\x02\x12!\n\x1dk_EStorageFormatStage_Testing\x10\x03\x12\"\n\x1ek_EStorageFormatStage_Rescuing\x10\x04\x12$\n k_EStorageFormatStage_Formatting\x10\x05\x12$\n k_EStorageFormatStage_Finalizing\x10\x06*\x84\x01\n\x15\x45SystemFanControlMode\x12\"\n\x1ek_SystemFanControlMode_Invalid\x10\x00\x12#\n\x1fk_SystemFanControlMode_Disabled\x10\x01\x12\"\n\x1ek_SystemFanControlMode_Default\x10\x02*\xaa\x01\n\x14\x45StartupMovieVariant\x12\"\n\x1ek_EStartupMovieVariant_Invalid\x10\x00\x12\"\n\x1ek_EStartupMovieVariant_Generic\x10\x01\x12#\n\x1fk_EStartupMovieVariant_DeckBlue\x10\x02\x12%\n!k_EStartupMovieVariant_DeckOrange\x10\x03*\x8b\x01\n\x13\x45\x43olorGamutLabelSet\x12 \n\x1ck_ColorGamutLabelSet_Default\x10\x00\x12$\n k_ColorGamutLabelSet_sRGB_Native\x10\x01\x12,\n(k_ColorGamutLabelSet_Native_sRGB_Boosted\x10\x02*}\n\x14\x45WindowStackingOrder\x12\"\n\x1ek_EWindowStackingOrder_Invalid\x10\x00\x12\x1e\n\x1ak_EWindowStackingOrder_Top\x10\x01\x12!\n\x1dk_EWindowStackingOrder_Bottom\x10\x02*\xc0\x03\n\x14\x45\x42luetoothDeviceType\x12!\n\x1dk_BluetoothDeviceType_Invalid\x10\x00\x12!\n\x1dk_BluetoothDeviceType_Unknown\x10\x01\x12\x1f\n\x1bk_BluetoothDeviceType_Phone\x10\x02\x12\"\n\x1ek_BluetoothDeviceType_Computer\x10\x03\x12!\n\x1dk_BluetoothDeviceType_Headset\x10\x04\x12$\n k_BluetoothDeviceType_Headphones\x10\x05\x12\"\n\x1ek_BluetoothDeviceType_Speakers\x10\x06\x12$\n k_BluetoothDeviceType_OtherAudio\x10\x07\x12\x1f\n\x1bk_BluetoothDeviceType_Mouse\x10\x08\x12\"\n\x1ek_BluetoothDeviceType_Joystick\x10\t\x12!\n\x1dk_BluetoothDeviceType_Gamepad\x10\n\x12\"\n\x1ek_BluetoothDeviceType_Keyboard\x10\x0b*\x80\x01\n\x15\x45SystemAudioDirection\x12\"\n\x1ek_SystemAudioDirection_Invalid\x10\x00\x12 \n\x1ck_SystemAudioDirection_Input\x10\x01\x12!\n\x1dk_SystemAudioDirection_Output\x10\x02*\xf1\x02\n\x13\x45SystemAudioChannel\x12 \n\x1ck_SystemAudioChannel_Invalid\x10\x00\x12#\n\x1fk_SystemAudioChannel_Aggregated\x10\x01\x12\"\n\x1ek_SystemAudioChannel_FrontLeft\x10\x02\x12#\n\x1fk_SystemAudioChannel_FrontRight\x10\x03\x12\x1c\n\x18k_SystemAudioChannel_LFE\x10\x04\x12!\n\x1dk_SystemAudioChannel_BackLeft\x10\x05\x12\"\n\x1ek_SystemAudioChannel_BackRight\x10\x06\x12$\n k_SystemAudioChannel_FrontCenter\x10\x07\x12 \n\x1ck_SystemAudioChannel_Unknown\x10\x08\x12\x1d\n\x19k_SystemAudioChannel_Mono\x10\t*\xc9\x01\n\x14\x45SystemAudioPortType\x12!\n\x1dk_SystemAudioPortType_Invalid\x10\x00\x12!\n\x1dk_SystemAudioPortType_Unknown\x10\x01\x12\"\n\x1ek_SystemAudioPortType_Audio32f\x10\x02\x12 \n\x1ck_SystemAudioPortType_Midi8b\x10\x03\x12%\n!k_SystemAudioPortType_Video32RGBA\x10\x04*\x90\x01\n\x19\x45SystemAudioPortDirection\x12&\n\"k_SystemAudioPortDirection_Invalid\x10\x00\x12$\n k_SystemAudioPortDirection_Input\x10\x01\x12%\n!k_SystemAudioPortDirection_Output\x10\x02*\x83\x01\n\x13\x45SystemServiceState\x12%\n!k_ESystemServiceState_Unavailable\x10\x00\x12\"\n\x1ek_ESystemServiceState_Disabled\x10\x01\x12!\n\x1dk_ESystemServiceState_Enabled\x10\x02*\xe1\x01\n\x19\x45GraphicsPerfOverlayLevel\x12&\n\"k_EGraphicsPerfOverlayLevel_Hidden\x10\x00\x12%\n!k_EGraphicsPerfOverlayLevel_Basic\x10\x01\x12&\n\"k_EGraphicsPerfOverlayLevel_Medium\x10\x02\x12$\n k_EGraphicsPerfOverlayLevel_Full\x10\x03\x12\'\n#k_EGraphicsPerfOverlayLevel_Minimal\x10\x04*\xe5\x01\n\x14\x45GPUPerformanceLevel\x12\"\n\x1ek_EGPUPerformanceLevel_Invalid\x10\x00\x12\x1f\n\x1bk_EGPUPerformanceLevel_Auto\x10\x01\x12!\n\x1dk_EGPUPerformanceLevel_Manual\x10\x02\x12\x1e\n\x1ak_EGPUPerformanceLevel_Low\x10\x03\x12\x1f\n\x1bk_EGPUPerformanceLevel_High\x10\x04\x12$\n k_EGPUPerformanceLevel_Profiling\x10\x05*\xc8\x01\n\x13\x45SplitScalingFilter\x12!\n\x1dk_ESplitScalingFilter_Invalid\x10\x00\x12 \n\x1ck_ESplitScalingFilter_Linear\x10\x01\x12!\n\x1dk_ESplitScalingFilter_Nearest\x10\x02\x12\x1f\n\x1bk_ESplitScalingFilter_Sharp\x10\x03\x12(\n$k_ESplitScalingFilter_NIS_Deprecated\x10\x04*\xdd\x01\n\x13\x45SplitScalingScaler\x12!\n\x1dk_ESplitScalingScaler_Invalid\x10\x00\x12\x1e\n\x1ak_ESplitScalingScaler_Auto\x10\x01\x12!\n\x1dk_ESplitScalingScaler_Integer\x10\x02\x12\x1d\n\x19k_ESplitScalingScaler_Fit\x10\x03\x12\x1e\n\x1ak_ESplitScalingScaler_Fill\x10\x04\x12!\n\x1dk_ESplitScalingScaler_Stretch\x10\x05*}\n\x12\x45GamescopeBlurMode\x12!\n\x1dk_EGamescopeBlurMode_Disabled\x10\x00\x12#\n\x1fk_EGamescopeBlurMode_IfOccluded\x10\x01\x12\x1f\n\x1bk_EGamescopeBlurMode_Always\x10\x02*\xc4\x01\n\nESLSHelper\x12\x18\n\x14k_ESLSHelper_Invalid\x10\x00\x12\x19\n\x15k_ESLSHelper_Minidump\x10\x01\x12\x16\n\x12k_ESLSHelper_Kdump\x10\x02\x12\x18\n\x14k_ESLSHelper_Journal\x10\x03\x12\x14\n\x10k_ESLSHelper_Gpu\x10\x04\x12\x1b\n\x17k_ESLSHelper_SystemInfo\x10\x05\x12\x1c\n\x18k_ESLSHelper_Devcoredump\x10\x06*\xc5\x01\n\x11\x45HDRVisualization\x12\x1c\n\x18k_EHDRVisualization_None\x10\x00\x12\x1f\n\x1bk_EHDRVisualization_Heatmap\x10\x01\x12 \n\x1ck_EHDRVisualization_Analysis\x10\x02\x12\'\n#k_EHDRVisualization_HeatmapExtended\x10\x03\x12&\n\"k_EHDRVisualization_HeatmapClassic\x10\x04*\x81\x01\n\x13\x45HDRToneMapOperator\x12!\n\x1dk_EHDRToneMapOperator_Invalid\x10\x00\x12#\n\x1fk_EHDRToneMapOperator_Uncharted\x10\x01\x12\"\n\x1ek_EHDRToneMapOperator_Reinhard\x10\x02*|\n\x0c\x45\x43PUGovernor\x12\x1a\n\x16k_ECPUGovernor_Invalid\x10\x00\x12\x17\n\x13k_ECPUGovernor_Perf\x10\x01\x12\x1c\n\x18k_ECPUGovernor_Powersave\x10\x02\x12\x19\n\x15k_ECPUGovernor_Manual\x10\x03*\xe2\x01\n\x0c\x45UpdaterType\x12\x1a\n\x16k_EUpdaterType_Invalid\x10\x00\x12\x19\n\x15k_EUpdaterType_Client\x10\x01\x12\x15\n\x11k_EUpdaterType_OS\x10\x02\x12\x17\n\x13k_EUpdaterType_BIOS\x10\x03\x12\x1d\n\x19k_EUpdaterType_Aggregated\x10\x04\x12\x18\n\x14k_EUpdaterType_Test1\x10\x05\x12\x18\n\x14k_EUpdaterType_Test2\x10\x06\x12\x18\n\x14k_EUpdaterType_Dummy\x10\x07*\x97\x02\n\rEUpdaterState\x12\x1b\n\x17k_EUpdaterState_Invalid\x10\x00\x12\x1c\n\x18k_EUpdaterState_UpToDate\x10\x02\x12\x1c\n\x18k_EUpdaterState_Checking\x10\x03\x12\x1d\n\x19k_EUpdaterState_Available\x10\x04\x12\x1c\n\x18k_EUpdaterState_Applying\x10\x05\x12(\n$k_EUpdaterState_ClientRestartPending\x10\x06\x12(\n$k_EUpdaterState_SystemRestartPending\x10\x07\x12\x1c\n\x18k_EUpdaterState_RollBack\x10\x08*\xe1\x01\n\x18\x45StorageBlockContentType\x12&\n\"k_EStorageBlockContentType_Invalid\x10\x00\x12&\n\"k_EStorageBlockContentType_Unknown\x10\x01\x12)\n%k_EStorageBlockContentType_FileSystem\x10\x02\x12%\n!k_EStorageBlockContentType_Crypto\x10\x03\x12#\n\x1fk_EStorageBlockContentType_Raid\x10\x04*\xc3\x01\n\x1b\x45StorageBlockFileSystemType\x12)\n%k_EStorageBlockFileSystemType_Invalid\x10\x00\x12)\n%k_EStorageBlockFileSystemType_Unknown\x10\x01\x12&\n\"k_EStorageBlockFileSystemType_VFat\x10\x02\x12&\n\"k_EStorageBlockFileSystemType_Ext4\x10\x03*\xd0\x01\n\x16\x45StorageDriveMediaType\x12$\n k_EStorageDriveMediaType_Invalid\x10\x00\x12$\n k_EStorageDriveMediaType_Unknown\x10\x01\x12 \n\x1ck_EStorageDriveMediaType_HDD\x10\x02\x12 \n\x1ck_EStorageDriveMediaType_SSD\x10\x03\x12&\n\"k_EStorageDriveMediaType_Removable\x10\x04*\xb3\x01\n\x1f\x45SystemDisplayCompatibilityMode\x12-\n)k_ESystemDisplayCompatibilityMode_Invalid\x10\x00\x12*\n&k_ESystemDisplayCompatibilityMode_None\x10\x01\x12\x35\n1k_ESystemDisplayCompatibilityMode_MinimalBandwith\x10\x02*\xad\x01\n\x1d\x45SteamOSCompatibilityCategory\x12+\n\'k_ESteamOSCompatibilityCategory_Unknown\x10\x00\x12/\n+k_ESteamOSCompatibilityCategory_Unsupported\x10\x01\x12.\n*k_ESteamOSCompatibilityCategory_Compatible\x10\x02*\x8f\x02\n&ESteamOSCompatibilityResultDisplayType\x12\x36\n2k_ESteamOSCompatibilityResultDisplayType_Invisible\x10\x00\x12:\n6k_ESteamOSCompatibilityResultDisplayType_Informational\x10\x01\x12\x38\n4k_ESteamOSCompatibilityResultDisplayType_Unsupported\x10\x02\x12\x37\n3k_ESteamOSCompatibilityResultDisplayType_Compatible\x10\x03*\xe3\x01\n\x1f\x45SteamDeckCompatibilityCategory\x12-\n)k_ESteamDeckCompatibilityCategory_Unknown\x10\x00\x12\x31\n-k_ESteamDeckCompatibilityCategory_Unsupported\x10\x01\x12.\n*k_ESteamDeckCompatibilityCategory_Playable\x10\x02\x12.\n*k_ESteamDeckCompatibilityCategory_Verified\x10\x03*\xd0\x02\n(ESteamDeckCompatibilityResultDisplayType\x12\x38\n4k_ESteamDeckCompatibilityResultDisplayType_Invisible\x10\x00\x12<\n8k_ESteamDeckCompatibilityResultDisplayType_Informational\x10\x01\x12:\n6k_ESteamDeckCompatibilityResultDisplayType_Unsupported\x10\x02\x12\x37\n3k_ESteamDeckCompatibilityResultDisplayType_Playable\x10\x03\x12\x37\n3k_ESteamDeckCompatibilityResultDisplayType_Verified\x10\x04*\x9a\x02\n!ESteamDeckCompatibilityTestResult\x12/\n+k_ESteamDeckCompatibilityTestResult_Invalid\x10\x00\x12\x35\n1k_ESteamDeckCompatibilityTestResult_NotApplicable\x10\x01\x12,\n(k_ESteamDeckCompatibilityTestResult_Pass\x10\x02\x12,\n(k_ESteamDeckCompatibilityTestResult_Fail\x10\x03\x12\x31\n-k_ESteamDeckCompatibilityTestResult_FailMinor\x10\x04*w\n\x08\x45\x41\x43State\x12\x16\n\x12k_EACState_Unknown\x10\x00\x12\x1b\n\x17k_EACState_Disconnected\x10\x01\x12\x18\n\x14k_EACState_Connected\x10\x02\x12\x1c\n\x18k_EACState_ConnectedSlow\x10\x03*\x85\x01\n\rEBatteryState\x12\x1b\n\x17k_EBatteryState_Unknown\x10\x00\x12\x1f\n\x1bk_EBatteryState_Discharging\x10\x01\x12\x1c\n\x18k_EBatteryState_Charging\x10\x02\x12\x18\n\x14k_EBatteryState_Full\x10\x03*\xfe\x01\n\tEOSBranch\x12\x17\n\x13k_EOSBranch_Unknown\x10\x00\x12\x17\n\x13k_EOSBranch_Release\x10\x01\x12 \n\x1ck_EOSBranch_ReleaseCandidate\x10\x02\x12\x14\n\x10k_EOSBranch_Beta\x10\x03\x12\x1d\n\x19k_EOSBranch_BetaCandidate\x10\x04\x12\x17\n\x13k_EOSBranch_Preview\x10\x05\x12 \n\x1ck_EOSBranch_PreviewCandidate\x10\x06\x12\x14\n\x10k_EOSBranch_Main\x10\x07\x12\x17\n\x13k_EOSBranch_Staging\x10\x08*\xc6\x03\n\x11\x45\x42rowserGPUStatus\x12\x1f\n\x1bk_EBrowserGPUStatus_Invalid\x10\x00\x12\x1f\n\x1bk_EBrowserGPUStatus_Enabled\x10\x01\x12\'\n#k_EBrowserGPUStatus_DisabledUnknown\x10\x02\x12*\n&k_EBrowserGPUStatus_DisabledCrashCount\x10\x04\x12)\n%k_EBrowserGPUStatus_DisabledBlocklist\x10\x05\x12)\n%k_EBrowserGPUStatus_DisabledJSRequest\x10\x06\x12+\n\'k_EBrowserGPUStatus_DisabledCommandLine\x10\x07\x12-\n)k_EBrowserGPUStatus_DisabledRuntimeDetect\x10\x08\x12\x30\n,k_EBrowserGPUStatus_DisabledChildCommandLine\x10\t\x12\x36\n2k_EBrowserGPUStatus_DisabledCompositingCommandLine\x10\n*\xe3\x04\n\x15\x45\x42rowserFeatureStatus\x12#\n\x1fk_EBrowserFeatureStatus_Invalid\x10\x00\x12$\n k_EBrowserFeatureStatus_NotFound\x10\x01\x12#\n\x1fk_EBrowserFeatureStatus_Unknown\x10\x02\x12,\n(k_EBrowserFeatureStatus_DisabledSoftware\x10\x03\x12\'\n#k_EBrowserFeatureStatus_DisabledOff\x10\x04\x12)\n%k_EBrowserFeatureStatus_DisabledOffOk\x10\x05\x12/\n+k_EBrowserFeatureStatus_UnavailableSoftware\x10\x06\x12*\n&k_EBrowserFeatureStatus_UnavailableOff\x10\x07\x12,\n(k_EBrowserFeatureStatus_UnavailableOffOk\x10\x08\x12+\n\'k_EBrowserFeatureStatus_EnabledReadback\x10\t\x12(\n$k_EBrowserFeatureStatus_EnabledForce\x10\n\x12#\n\x1fk_EBrowserFeatureStatus_Enabled\x10\x0b\x12%\n!k_EBrowserFeatureStatus_EnabledOn\x10\x0c\x12*\n&k_EBrowserFeatureStatus_EnabledForceOn\x10\r*\x9f\x05\n\x0c\x45GpuDriverId\x12\x1a\n\x16k_EGpuDriverId_Invalid\x10\x00\x12\x1a\n\x16k_EGpuDriverId_Unknown\x10\x01\x12!\n\x1dk_EGpuDriverId_AmdProprietary\x10\x02\x12 \n\x1ck_EGpuDriverId_AmdOpenSource\x10\x03\x12\x1b\n\x17k_EGpuDriverId_MesaRadv\x10\x04\x12$\n k_EGpuDriverId_NvidiaProprietary\x10\x05\x12\"\n\x1ek_EGpuDriverId_IntelPropietary\x10\x06\x12\x1c\n\x18k_EGpuDriverId_MesaIntel\x10\x07\x12&\n\"k_EGpuDriverId_QualcommProprietary\x10\x08\x12!\n\x1dk_EGpuDriverId_ArmProprietary\x10\t\x12$\n k_EGpuDriverId_GoogleSwiftshader\x10\n\x12&\n\"k_EGpuDriverId_BroadcomProprietary\x10\x0b\x12\x1f\n\x1bk_EGpuDriverId_MesaLLVMPipe\x10\x0c\x12\x1b\n\x17k_EGpuDriverId_MoltenVK\x10\r\x12\x1d\n\x19k_EGpuDriverId_MesaTurnip\x10\x0e\x12\x1c\n\x18k_EGpuDriverId_MesaPanVK\x10\x0f\x12\x1c\n\x18k_EGpuDriverId_MesaVenus\x10\x10\x12\x1c\n\x18k_EGpuDriverId_MesaDozen\x10\x11\x12\x1a\n\x16k_EGpuDriverId_MesaNVK\x10\x12\x12!\n\x1dk_EGpuDriverId_MesaHoneyKrisp\x10\x13*\xdd\x05\n\x13\x45\x43ommunityItemClass\x12!\n\x1dk_ECommunityItemClass_Invalid\x10\x00\x12\x1f\n\x1bk_ECommunityItemClass_Badge\x10\x01\x12\"\n\x1ek_ECommunityItemClass_GameCard\x10\x02\x12+\n\'k_ECommunityItemClass_ProfileBackground\x10\x03\x12\"\n\x1ek_ECommunityItemClass_Emoticon\x10\x04\x12%\n!k_ECommunityItemClass_BoosterPack\x10\x05\x12$\n k_ECommunityItemClass_Consumable\x10\x06\x12!\n\x1dk_ECommunityItemClass_GameGoo\x10\x07\x12)\n%k_ECommunityItemClass_ProfileModifier\x10\x08\x12\x1f\n\x1bk_ECommunityItemClass_Scene\x10\t\x12$\n k_ECommunityItemClass_SalienItem\x10\n\x12!\n\x1dk_ECommunityItemClass_Sticker\x10\x0b\x12$\n k_ECommunityItemClass_ChatEffect\x10\x0c\x12/\n+k_ECommunityItemClass_MiniProfileBackground\x10\r\x12%\n!k_ECommunityItemClass_AvatarFrame\x10\x0e\x12(\n$k_ECommunityItemClass_AnimatedAvatar\x10\x0f\x12/\n+k_ECommunityItemClass_SteamDeckKeyboardSkin\x10\x10\x12/\n+k_ECommunityItemClass_SteamDeckStartupMovie\x10\x11*\xd9\x01\n\x1f\x45SteamDeckCompatibilityFeedback\x12+\n\'k_ESteamDeckCompatibilityFeedback_Unset\x10\x00\x12+\n\'k_ESteamDeckCompatibilityFeedback_Agree\x10\x01\x12.\n*k_ESteamDeckCompatibilityFeedback_Disagree\x10\x02\x12,\n(k_ESteamDeckCompatibilityFeedback_Ignore\x10\x03*\x9f\x01\n\x1e\x45ProvideDeckFeedbackPreference\x12*\n&k_EProvideDeckFeedbackPreference_Unset\x10\x00\x12(\n$k_EProvideDeckFeedbackPreference_Yes\x10\x01\x12\'\n#k_EProvideDeckFeedbackPreference_No\x10\x02*\xb1\x03\n\rETouchGesture\x12\x17\n\x13k_ETouchGestureNone\x10\x00\x12\x18\n\x14k_ETouchGestureTouch\x10\x01\x12\x16\n\x12k_ETouchGestureTap\x10\x02\x12\x1c\n\x18k_ETouchGestureDoubleTap\x10\x03\x12\x1d\n\x19k_ETouchGestureShortPress\x10\x04\x12\x1c\n\x18k_ETouchGestureLongPress\x10\x05\x12\x1a\n\x16k_ETouchGestureLongTap\x10\x06\x12\x1f\n\x1bk_ETouchGestureTwoFingerTap\x10\x07\x12\x1f\n\x1bk_ETouchGestureTapCancelled\x10\x08\x12\x1d\n\x19k_ETouchGesturePinchBegin\x10\t\x12\x1e\n\x1ak_ETouchGesturePinchUpdate\x10\n\x12\x1b\n\x17k_ETouchGesturePinchEnd\x10\x0b\x12\x1d\n\x19k_ETouchGestureFlingStart\x10\x0c\x12!\n\x1dk_ETouchGestureFlingCancelled\x10\r*\x8c\x01\n\x13\x45SessionPersistence\x12*\n\x1dk_ESessionPersistence_Invalid\x10\xff\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12#\n\x1fk_ESessionPersistence_Ephemeral\x10\x00\x12$\n k_ESessionPersistence_Persistent\x10\x01*\xd9\x01\n\x1a\x45NewSteamAnnouncementState\x12(\n$k_ENewSteamAnnouncementState_Invalid\x10\x00\x12(\n$k_ENewSteamAnnouncementState_AllRead\x10\x01\x12\x30\n,k_ENewSteamAnnouncementState_NewAnnouncement\x10\x02\x12\x35\n1k_ENewSteamAnnouncementState_FeaturedAnnouncement\x10\x03*\xfe\x01\n\nEForumType\x12\x18\n\x14k_EForumType_Invalid\x10\x00\x12\x18\n\x14k_EForumType_General\x10\x01\x12\x1e\n\x1ak_EForumType_ReportedPosts\x10\x02\x12\x19\n\x15k_EForumType_Workshop\x10\x03\x12\x1e\n\x1ak_EForumType_PublishedFile\x10\x04\x12\x18\n\x14k_EForumType_Trading\x10\x05\x12\x19\n\x15k_EForumType_PlayTest\x10\x06\x12\x16\n\x12k_EForumType_Event\x10\x07\x12\x14\n\x10k_EForumType_Max\x10\x08*\x8b\x07\n\x12\x45\x43ommentThreadType\x12\x1f\n\x1bk_ECommentThreadTypeInvalid\x10\x00\x12-\n)k_ECommentThreadTypeScreenshot_Deprecated\x10\x01\x12\x31\n-k_ECommentThreadTypeWorkshopAccount_Developer\x10\x02\x12.\n*k_ECommentThreadTypeWorkshopAccount_Public\x10\x03\x12/\n+k_ECommentThreadTypePublishedFile_Developer\x10\x04\x12,\n(k_ECommentThreadTypePublishedFile_Public\x10\x05\x12\x1c\n\x18k_ECommentThreadTypeTest\x10\x06\x12\"\n\x1ek_ECommentThreadTypeForumTopic\x10\x07\x12&\n\"k_ECommentThreadTypeRecommendation\x10\x08\x12(\n$k_ECommentThreadTypeVideo_Deprecated\x10\t\x12\x1f\n\x1bk_ECommentThreadTypeProfile\x10\n\x12 \n\x1ck_ECommentThreadTypeNewsPost\x10\x0b\x12\x1c\n\x18k_ECommentThreadTypeClan\x10\x0c\x12(\n$k_ECommentThreadTypeClanAnnouncement\x10\r\x12!\n\x1dk_ECommentThreadTypeClanEvent\x10\x0e\x12+\n\'k_ECommentThreadTypeUserStatusPublished\x10\x0f\x12+\n\'k_ECommentThreadTypeUserReceivedNewGame\x10\x10\x12\x32\n.k_ECommentThreadTypePublishedFile_Announcement\x10\x11\x12(\n$k_ECommentThreadTypeModeratorMessage\x10\x12\x12&\n\"k_ECommentThreadTypeClanCuratedApp\x10\x13\x12$\n k_ECommentThreadTypeQAndASession\x10\x14\x12\x1b\n\x17k_ECommentThreadTypeMax\x10\x15*\xd7\x01\n\x14\x45\x42roadcastPermission\x12\"\n\x1ek_EBroadcastPermissionDisabled\x10\x00\x12(\n$k_EBroadcastPermissionFriendsApprove\x10\x01\x12(\n$k_EBroadcastPermissionFriendsAllowed\x10\x02\x12 \n\x1ck_EBroadcastPermissionPublic\x10\x03\x12%\n!k_EBroadcastPermissionSubscribers\x10\x04*f\n\x18\x45\x42roadcastEncoderSetting\x12\"\n\x1ek_EBroadcastEncoderBestQuality\x10\x00\x12&\n\"k_EBroadcastEncoderBestPerformance\x10\x01*y\n\x14\x45\x43loudGamingPlatform\x12\x1e\n\x1ak_ECloudGamingPlatformNone\x10\x00\x12\x1f\n\x1bk_ECloudGamingPlatformValve\x10\x01\x12 \n\x1ck_ECloudGamingPlatformNVIDIA\x10\x02*\xed\x02\n\x18\x45\x43ompromiseDetectionType\x12#\n\x1fk_ECompromiseDetectionType_None\x10\x00\x12)\n%k_ECompromiseDetectionType_TradeEvent\x10\x01\x12*\n&k_ECompromiseDetectionType_ApiCallRate\x10\x02\x12%\n!k_ECompromiseDetectionType_Manual\x10\x03\x12+\n\'k_ECompromiseDetectionType_TicketAction\x10\x04\x12.\n*k_ECompromiseDetectionType_MaliciousRefund\x10\x05\x12&\n\"k_ECompromiseDetectionType_Move2FA\x10\x06\x12)\n%k_ECompromiseDetectionType_DeviceType\x10\x07*\xd6\x01\n\x1a\x45\x41syncGameSessionUserState\x12\x30\n#k_EAsyncGameSessionUserStateUnknown\x10\xff\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12\x30\n,k_EAsyncGameSessionUserStateWaitingForOthers\x10\x00\x12.\n*k_EAsyncGameSessionUserStateReadyForAction\x10\x01\x12$\n k_EAsyncGameSessionUserStateDone\x10\x02*\xc4\x01\n\x1f\x45\x41syncGameSessionUserVisibility\x12;\n7k_EAsyncGameSessionUserVisibilityEnvelopeAndSessionList\x10\x00\x12\x34\n0k_EAsyncGameSessionUserVisibilitySessionListOnly\x10\x01\x12.\n*k_EAsyncGameSessionUserVisibilityDismissed\x10\x02*\xd4\x01\n\x12\x45GameRecordingType\x12 \n\x1ck_EGameRecordingType_Unknown\x10\x00\x12%\n!k_EGameRecordingType_NotRecording\x10\x01\x12(\n$k_EGameRecordingType_ManualRecording\x10\x02\x12,\n(k_EGameRecordingType_BackgroundRecording\x10\x03\x12\x1d\n\x19k_EGameRecordingType_Clip\x10\x04*\\\n\x0c\x45\x45xportCodec\x12\x1a\n\x16k_EExportCodec_Default\x10\x00\x12\x17\n\x13k_EExportCodec_H264\x10\x01\x12\x17\n\x13k_EExportCodec_H265\x10\x02*\xea\x03\n\rEProtoAppType\x12\x15\n\x11k_EAppTypeInvalid\x10\x00\x12\x12\n\x0ek_EAppTypeGame\x10\x01\x12\x19\n\x15k_EAppTypeApplication\x10\x02\x12\x12\n\x0ek_EAppTypeTool\x10\x04\x12\x12\n\x0ek_EAppTypeDemo\x10\x08\x12\x17\n\x13k_EAppTypeDeprected\x10\x10\x12\x11\n\rk_EAppTypeDLC\x10 \x12\x13\n\x0fk_EAppTypeGuide\x10@\x12\x15\n\x10k_EAppTypeDriver\x10\x80\x01\x12\x15\n\x10k_EAppTypeConfig\x10\x80\x02\x12\x17\n\x12k_EAppTypeHardware\x10\x80\x04\x12\x18\n\x13k_EAppTypeFranchise\x10\x80\x08\x12\x14\n\x0fk_EAppTypeVideo\x10\x80\x10\x12\x15\n\x10k_EAppTypePlugin\x10\x80 \x12\x19\n\x14k_EAppTypeMusicAlbum\x10\x80@\x12\x16\n\x10k_EAppTypeSeries\x10\x80\x80\x01\x12\x15\n\x0fk_EAppTypeComic\x10\x80\x80\x02\x12\x14\n\x0ek_EAppTypeBeta\x10\x80\x80\x04\x12\x1a\n\x12k_EAppTypeShortcut\x10\x80\x80\x80\x80\x04\x12 \n\x13k_EAppTypeDepotOnly\x10\x80\x80\x80\x80\xf8\xff\xff\xff\xff\x01*\x96\x01\n\x19\x45\x43hildProcessQueryCommand\x12\'\n#k_EChildProcessQueryCommand_Invalid\x10\x00\x12+\n\'k_EChildProcessQueryCommand_GpuTopology\x10\x01\x12#\n\x1fk_EChildProcessQueryCommand_Max\x10\x02*\xf6\x02\n\x1a\x45\x43hildProcessQueryExitCode\x12(\n$k_EChildProcessQueryExitCode_Success\x10\x00\x12:\n-k_EChildProcessQueryExitCode_ErrorCommandline\x10\xff\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12\x34\n\'k_EChildProcessQueryExitCode_ErrorOther\x10\xfe\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12<\n/k_EChildProcessQueryExitCode_ErrorUnimplemented\x10\xfd\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12\x37\n*k_EChildProcessQueryExitCode_ErrorFileSave\x10\xfc\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12\x45\n8k_EChildProcessQueryExitCode_ErrorNotSupportedByPlatform\x10\xfb\xff\xff\xff\xff\xff\xff\xff\xff\x01*\xf2\x01\n EWindowsUpdateInstallationImpact\x12\x37\n*k_EWindowsUpdateInstallationImpact_Unknown\x10\xff\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12-\n)k_EWindowsUpdateInstallationImpact_Normal\x10\x00\x12,\n(k_EWindowsUpdateInstallationImpact_Minor\x10\x01\x12\x38\n4k_EWindowsUpdateInstallationImpact_ExclusiveHandling\x10\x02*\xf2\x01\n\x1c\x45WindowsUpdateRebootBehavior\x12\x33\n&k_EWindowsUpdateRebootBehavior_Unknown\x10\xff\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12\x33\n/k_EWindowsUpdateRebootBehavior_NeverNeedsReboot\x10\x00\x12\x34\n0k_EWindowsUpdateRebootBehavior_AlwaysNeedsReboot\x10\x01\x12\x32\n.k_EWindowsUpdateRebootBehavior_MightNeedReboot\x10\x02*\xfe\x01\n\x16\x45\x45xternalSaleEventType\x12$\n k_EExternalSaleEventType_Unknown\x10\x00\x12&\n\"k_EExternalSaleEventType_Publisher\x10\x01\x12%\n!k_EExternalSaleEventType_Showcase\x10\x02\x12#\n\x1fk_EExternalSaleEventType_Region\x10\x03\x12\"\n\x1ek_EExternalSaleEventType_Theme\x10\x04\x12&\n\"k_EExternalSaleEventType_Franchise\x10\x05*\xdb\x01\n\x1f\x45\x45nhancedMarketAppearanceStatus\x12)\n%k_EnhancedMarketAppearanceStatus_None\x10\x00\x12,\n(k_EnhancedMarketAppearanceStatus_Pending\x10\x01\x12/\n+k_EnhancedMarketAppearanceStatus_InProgress\x10\x02\x12.\n*k_EnhancedMarketAppearanceStatus_Completed\x10\x03*\xc1\x02\n\x19\x45\x43ontentReportSubjectType\x12\'\n#k_EContentReportSubjectType_Invalid\x10\x00\x12)\n%k_EContentReportSubjectType_ForumPost\x10\x01\x12&\n\"k_EContentReportSubjectType_Unused\x10\x02\x12\'\n#k_EContentReportSubjectType_UGCFile\x10\x03\x12-\n)k_EContentReportSubjectType_FriendChatMsg\x10\x04\x12+\n\'k_EContentReportSubjectType_ChatRoomMsg\x10\x05\x12#\n\x1fk_EContentReportSubjectType_MAX\x10\x06*\xd9\x01\n\x1e\x45\x43ontrolledLegalCategoryStatus\x12)\n%k_EControlledLegalCategoryStatus_None\x10\x00\x12,\n(k_EControlledLegalCategoryStatus_Accused\x10\x01\x12.\n*k_EControlledLegalCategoryStatus_Convicted\x10\x02\x12.\n*k_EControlledLegalCategoryStatus_Acquitted\x10\x03*\xa9\x01\n\x16\x45\x43ontentModeratorLevel\x12 \n\x1ck_EContentModeratorLevel_Any\x10\x00\x12\'\n#k_EContentModeratorLevel_Supervisor\x10\x01\x12\"\n\x1ek_EContentModeratorLevel_Valve\x10\n\x12 \n\x1ck_EContentModeratorLevel_MAX\x10\x0b*\x91\x02\n\x18\x45\x43ontentReportResolution\x12)\n%k_EContentReportResolution_Unresolved\x10\x00\x12(\n$k_EContentReportResolution_Acquitted\x10\x01\x12&\n\"k_EContentReportResolution_Removed\x10\x02\x12)\n%k_EContentReportResolution_Relabelled\x10\x03\x12)\n%k_EContentReportResolution_Suspicious\x10\x04\x12\"\n\x1ek_EContentReportResolution_MAX\x10\x05*\xc1\x17\n\x14\x45\x43ontentReportReason\x12\"\n\x1ek_EContentReportReason_Invalid\x10\x00\x12\x1f\n\x1bk_EContentReportReason_None\x10\x01\x12\"\n\x1ek_EContentReportReason_Unknown\x10\x02\x12%\n!k_EContentReportReason_Harassment\x10\x03\x12\x32\n.k_EContentReportReason_BullyingAndIntimidation\x10\x04\x12#\n\x1fk_EContentReportReason_Stalking\x10\x05\x12\"\n\x1ek_EContentReportReason_Doxxing\x10\x06\x12*\n&k_EContentReportReason_OtherHarassment\x10\x07\x12.\n*k_EContentReportReason_EncouragingViolence\x10\x08\x12.\n*k_EContentReportReason_EncouragingSelfHarm\x10\t\x12-\n)k_EContentReportReason_EncouragingSuicide\x10\n\x12\x32\n.k_EContentReportReason_OtherViolenceOrSelfHarm\x10\x0b\x12\x31\n-k_EContentReportReason_PhishingOrAccountTheft\x10\x0c\x12,\n(k_EContentReportReason_AttemptedScamming\x10\r\x12\x34\n0k_EContentReportReason_LinkingToMaliciousContent\x10\x0e\x12(\n$k_EContentReportReason_Impersonation\x10\x0f\x12-\n)k_EContentReportReason_OtherScamsAndTheft\x10\x10\x12/\n+k_EContentReportReason_EncouragingTerrorism\x10\x11\x12.\n*k_EContentReportReason_OrganizingTerrorism\x10\x12\x12)\n%k_EContentReportReason_OtherTerrorism\x10\x13\x12(\n$k_EContentReportReason_TargetedAbuse\x10\x14\x12+\n\'k_EContentReportReason_NamingAndShaming\x10\x15\x12)\n%k_EContentReportReason_Discrimination\x10\x16\x12%\n!k_EContentReportReason_OtherAbuse\x10\x17\x12#\n\x1fk_EContentReportReason_Trolling\x10\x18\x12\"\n\x1ek_EContentReportReason_Baiting\x10\x19\x12$\n k_EContentReportReason_Derailing\x10\x1a\x12*\n&k_EContentReportReason_OtherDisruptive\x10\x1b\x12\x1f\n\x1bk_EContentReportReason_Spam\x10\x1c\x12\"\n\x1ek_EContentReportReason_Begging\x10\x1d\x12$\n k_EContentReportReason_Reposting\x10\x1e\x12(\n$k_EContentReportReason_OtherOffTopic\x10\x1f\x12,\n(k_EContentReportReason_CSAMSexualContent\x10 \x12\x33\n/k_EContentReportReason_CSAMGroomingOrEnticement\x10!\x12$\n k_EContentReportReason_CSAMOther\x10\"\x12\x30\n,k_EContentReportReason_NudityOrSexualContent\x10#\x12\x30\n,k_EContentReportReason_NonConsensualMaterial\x10$\x12&\n\"k_EContentReportReason_Advertising\x10%\x12(\n$k_EContentReportReason_ReferralLinks\x10&\x12#\n\x1fk_EContentReportReason_Gambling\x10\'\x12\"\n\x1ek_EContentReportReason_Raffles\x10(\x12\x32\n.k_EContentReportReason_OtherCommercialActivity\x10)\x12,\n(k_EContentReportReason_InauthenticReview\x10*\x12G\nCk_EContentReportReason_HiddenAdvertisementOrCommercialCommunication\x10+\x12\x44\n@k_EContentReportReason_MisleadingInformationAboutGoodsOrServices\x10,\x12\x43\n?k_EContentReportReason_MisleadingInformationAboutConsumerRights\x10-\x12>\n:k_EContentReportReason_NoncomplianceWithPricingRegulations\x10.\x12\x36\n2k_EContentReportReason_RightToBeForgottenViolation\x10/\x12\x39\n5k_EContentReportReason_MissingProcessingGroundForData\x10\x30\x12\x41\n=k_EContentReportReason_OtherDataProtectionAndPrivacyViolation\x10\x31\x12-\n)k_EContentReportReason_GenderedHarassment\x10\x32\x12:\n6k_EContentReportReason_GenderedBullyingAndIntimidation\x10\x33\x12+\n\'k_EContentReportReason_GenderedStalking\x10\x34\x12*\n&k_EContentReportReason_GenderedDoxxing\x10\x35\x12\x32\n.k_EContentReportReason_GenderedOtherHarassment\x10\x36\x12\x36\n2k_EContentReportReason_GenderedEncouragingViolence\x10\x37\x12\x30\n,k_EContentReportReason_GenderedTargetedAbuse\x10\x38\x12\x31\n-k_EContentReportReason_CSAMFakedSexualContent\x10\x39\x12\x38\n4k_EContentReportReason_GenderedNonConsensualMaterial\x10:\x12=\n9k_EContentReportReason_FakedGenderedNonConsensualMaterial\x10;\x12\x35\n1k_EContentReportReason_FakedNonConsensualMaterial\x10<\x12?\n;k_EContentReportReason_NegativeEffectonDiscourseOrElections\x10=\x12\x1e\n\x1ak_EContentReportReason_MAX\x10>B\x02H\x01')
 
-_EPUBLISHEDFILEQUERYTYPE = _descriptor.EnumDescriptor(
-  name='EPublishedFileQueryType',
-  full_name='EPublishedFileQueryType',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByVote', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByPublicationDate', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_AcceptedForGameRankedByAcceptanceDate', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByTrend', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_FavoritedByFriendsRankedByPublicationDate', index=4, number=4,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_CreatedByFriendsRankedByPublicationDate', index=5, number=5,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByNumTimesReported', index=6, number=6,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_CreatedByFollowedUsersRankedByPublicationDate', index=7, number=7,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_NotYetRated', index=8, number=8,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByTotalUniqueSubscriptions', index=9, number=9,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByTotalVotesAsc', index=10, number=10,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByVotesUp', index=11, number=11,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByTextSearch', index=12, number=12,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByPlaytimeTrend', index=13, number=13,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByTotalPlaytime', index=14, number=14,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByAveragePlaytimeTrend', index=15, number=15,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByLifetimeAveragePlaytime', index=16, number=16,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByPlaytimeSessionsTrend', index=17, number=17,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByLifetimePlaytimeSessions', index=18, number=18,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByInappropriateContentRating', index=19, number=19,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByBanContentCheck', index=20, number=20,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_PublishedFileQueryType_RankedByLastUpdatedDate', index=21, number=21,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=42,
-  serialized_end=1322,
-)
-_sym_db.RegisterEnumDescriptor(_EPUBLISHEDFILEQUERYTYPE)
-
+_EPUBLISHEDFILEQUERYTYPE = DESCRIPTOR.enum_types_by_name['EPublishedFileQueryType']
 EPublishedFileQueryType = enum_type_wrapper.EnumTypeWrapper(_EPUBLISHEDFILEQUERYTYPE)
-_EPUBLISHEDFILEINAPPROPRIATEPROVIDER = _descriptor.EnumDescriptor(
-  name='EPublishedFileInappropriateProvider',
-  full_name='EPublishedFileInappropriateProvider',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileInappropriateProvider_Invalid', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileInappropriateProvider_Google', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileInappropriateProvider_Amazon', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=1325,
-  serialized_end=1513,
-)
-_sym_db.RegisterEnumDescriptor(_EPUBLISHEDFILEINAPPROPRIATEPROVIDER)
-
+_EPUBLISHEDFILEINAPPROPRIATEPROVIDER = DESCRIPTOR.enum_types_by_name['EPublishedFileInappropriateProvider']
 EPublishedFileInappropriateProvider = enum_type_wrapper.EnumTypeWrapper(_EPUBLISHEDFILEINAPPROPRIATEPROVIDER)
-_EPUBLISHEDFILEINAPPROPRIATERESULT = _descriptor.EnumDescriptor(
-  name='EPublishedFileInappropriateResult',
-  full_name='EPublishedFileInappropriateResult',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileInappropriateResult_NotScanned', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileInappropriateResult_VeryUnlikely', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileInappropriateResult_Unlikely', index=2, number=30,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileInappropriateResult_Possible', index=3, number=50,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileInappropriateResult_Likely', index=4, number=75,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileInappropriateResult_VeryLikely', index=5, number=100,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=1516,
-  serialized_end=1857,
-)
-_sym_db.RegisterEnumDescriptor(_EPUBLISHEDFILEINAPPROPRIATERESULT)
-
+_EPUBLISHEDFILEINAPPROPRIATERESULT = DESCRIPTOR.enum_types_by_name['EPublishedFileInappropriateResult']
 EPublishedFileInappropriateResult = enum_type_wrapper.EnumTypeWrapper(_EPUBLISHEDFILEINAPPROPRIATERESULT)
-_EPERSONASTATEFLAG = _descriptor.EnumDescriptor(
-  name='EPersonaStateFlag',
-  full_name='EPersonaStateFlag',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_EPersonaStateFlag_HasRichPresence', index=0, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPersonaStateFlag_InJoinableGame', index=1, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPersonaStateFlag_Golden', index=2, number=4,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPersonaStateFlag_RemotePlayTogether', index=3, number=8,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPersonaStateFlag_ClientTypeWeb', index=4, number=256,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPersonaStateFlag_ClientTypeMobile', index=5, number=512,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPersonaStateFlag_ClientTypeTenfoot', index=6, number=1024,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPersonaStateFlag_ClientTypeVR', index=7, number=2048,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPersonaStateFlag_LaunchTypeGamepad', index=8, number=4096,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPersonaStateFlag_LaunchTypeCompatTool', index=9, number=8192,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=1860,
-  serialized_end=2293,
-)
-_sym_db.RegisterEnumDescriptor(_EPERSONASTATEFLAG)
-
+_EPERSONASTATEFLAG = DESCRIPTOR.enum_types_by_name['EPersonaStateFlag']
 EPersonaStateFlag = enum_type_wrapper.EnumTypeWrapper(_EPERSONASTATEFLAG)
-_ECONTENTCHECKPROVIDER = _descriptor.EnumDescriptor(
-  name='EContentCheckProvider',
-  full_name='EContentCheckProvider',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_EContentCheckProvider_Invalid', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EContentCheckProvider_Google', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EContentCheckProvider_Amazon', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EContentCheckProvider_Local', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=2296,
-  serialized_end=2463,
-)
-_sym_db.RegisterEnumDescriptor(_ECONTENTCHECKPROVIDER)
-
+_ECONTENTCHECKPROVIDER = DESCRIPTOR.enum_types_by_name['EContentCheckProvider']
 EContentCheckProvider = enum_type_wrapper.EnumTypeWrapper(_ECONTENTCHECKPROVIDER)
-_EBANCONTENTCHECKRESULT = _descriptor.EnumDescriptor(
-  name='EBanContentCheckResult',
-  full_name='EBanContentCheckResult',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_EBanContentCheckResult_NotScanned', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EBanContentCheckResult_Reset', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EBanContentCheckResult_NeedsChecking', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EBanContentCheckResult_VeryUnlikely', index=3, number=5,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EBanContentCheckResult_Unlikely', index=4, number=30,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EBanContentCheckResult_Possible', index=5, number=50,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EBanContentCheckResult_Likely', index=6, number=75,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EBanContentCheckResult_VeryLikely', index=7, number=100,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=2466,
-  serialized_end=2810,
-)
-_sym_db.RegisterEnumDescriptor(_EBANCONTENTCHECKRESULT)
-
-EBanContentCheckResult = enum_type_wrapper.EnumTypeWrapper(_EBANCONTENTCHECKRESULT)
-_EPROFILECUSTOMIZATIONTYPE = _descriptor.EnumDescriptor(
-  name='EProfileCustomizationType',
-  full_name='EProfileCustomizationType',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeInvalid', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeRareAchievementShowcase', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeGameCollector', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeItemShowcase', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeTradeShowcase', index=4, number=4,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeBadges', index=5, number=5,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeFavoriteGame', index=6, number=6,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeScreenshotShowcase', index=7, number=7,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeCustomText', index=8, number=8,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeFavoriteGroup', index=9, number=9,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeRecommendation', index=10, number=10,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeWorkshopItem', index=11, number=11,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeMyWorkshop', index=12, number=12,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeArtworkShowcase', index=13, number=13,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeVideoShowcase', index=14, number=14,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeGuides', index=15, number=15,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeMyGuides', index=16, number=16,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeAchievements', index=17, number=17,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeGreenlight', index=18, number=18,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeMyGreenlight', index=19, number=19,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeSalien', index=20, number=20,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeLoyaltyRewardReactions', index=21, number=21,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeSingleArtworkShowcase', index=22, number=22,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EProfileCustomizationTypeAchievementsCompletionist', index=23, number=23,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=2813,
-  serialized_end=3945,
-)
-_sym_db.RegisterEnumDescriptor(_EPROFILECUSTOMIZATIONTYPE)
-
+_EPROFILECUSTOMIZATIONTYPE = DESCRIPTOR.enum_types_by_name['EProfileCustomizationType']
 EProfileCustomizationType = enum_type_wrapper.EnumTypeWrapper(_EPROFILECUSTOMIZATIONTYPE)
-_EPUBLISHEDFILESTORAGESYSTEM = _descriptor.EnumDescriptor(
-  name='EPublishedFileStorageSystem',
-  full_name='EPublishedFileStorageSystem',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileStorageSystemInvalid', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileStorageSystemLegacyCloud', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileStorageSystemDepot', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EPublishedFileStorageSystemUGCCloud', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=3948,
-  serialized_end=4148,
-)
-_sym_db.RegisterEnumDescriptor(_EPUBLISHEDFILESTORAGESYSTEM)
-
+_EPUBLISHEDFILESTORAGESYSTEM = DESCRIPTOR.enum_types_by_name['EPublishedFileStorageSystem']
 EPublishedFileStorageSystem = enum_type_wrapper.EnumTypeWrapper(_EPUBLISHEDFILESTORAGESYSTEM)
-_ECLOUDSTORAGEPERSISTSTATE = _descriptor.EnumDescriptor(
-  name='ECloudStoragePersistState',
-  full_name='ECloudStoragePersistState',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_ECloudStoragePersistStatePersisted', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_ECloudStoragePersistStateForgotten', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_ECloudStoragePersistStateDeleted', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=4151,
-  serialized_end=4302,
-)
-_sym_db.RegisterEnumDescriptor(_ECLOUDSTORAGEPERSISTSTATE)
-
+_ECLOUDSTORAGEPERSISTSTATE = DESCRIPTOR.enum_types_by_name['ECloudStoragePersistState']
 ECloudStoragePersistState = enum_type_wrapper.EnumTypeWrapper(_ECLOUDSTORAGEPERSISTSTATE)
-_EBLUETOOTHDEVICETYPE = _descriptor.EnumDescriptor(
-  name='EBluetoothDeviceType',
-  full_name='EBluetoothDeviceType',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_Invalid', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_Unknown', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_Phone', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_Computer', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_Headset', index=4, number=4,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_Headphones', index=5, number=5,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_Speakers', index=6, number=6,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_OtherAudio', index=7, number=7,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_Mouse', index=8, number=8,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_Joystick', index=9, number=9,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_Gamepad', index=10, number=10,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_BluetoothDeviceType_Keyboard', index=11, number=11,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=4305,
-  serialized_end=4753,
-)
-_sym_db.RegisterEnumDescriptor(_EBLUETOOTHDEVICETYPE)
-
+_ESDCARDFORMATSTAGE = DESCRIPTOR.enum_types_by_name['ESDCardFormatStage']
+ESDCardFormatStage = enum_type_wrapper.EnumTypeWrapper(_ESDCARDFORMATSTAGE)
+_ESTORAGEFORMATSTAGE = DESCRIPTOR.enum_types_by_name['EStorageFormatStage']
+EStorageFormatStage = enum_type_wrapper.EnumTypeWrapper(_ESTORAGEFORMATSTAGE)
+_ESYSTEMFANCONTROLMODE = DESCRIPTOR.enum_types_by_name['ESystemFanControlMode']
+ESystemFanControlMode = enum_type_wrapper.EnumTypeWrapper(_ESYSTEMFANCONTROLMODE)
+_ESTARTUPMOVIEVARIANT = DESCRIPTOR.enum_types_by_name['EStartupMovieVariant']
+EStartupMovieVariant = enum_type_wrapper.EnumTypeWrapper(_ESTARTUPMOVIEVARIANT)
+_ECOLORGAMUTLABELSET = DESCRIPTOR.enum_types_by_name['EColorGamutLabelSet']
+EColorGamutLabelSet = enum_type_wrapper.EnumTypeWrapper(_ECOLORGAMUTLABELSET)
+_EWINDOWSTACKINGORDER = DESCRIPTOR.enum_types_by_name['EWindowStackingOrder']
+EWindowStackingOrder = enum_type_wrapper.EnumTypeWrapper(_EWINDOWSTACKINGORDER)
+_EBLUETOOTHDEVICETYPE = DESCRIPTOR.enum_types_by_name['EBluetoothDeviceType']
 EBluetoothDeviceType = enum_type_wrapper.EnumTypeWrapper(_EBLUETOOTHDEVICETYPE)
-_ESTORAGEBLOCKCONTENTTYPE = _descriptor.EnumDescriptor(
-  name='EStorageBlockContentType',
-  full_name='EStorageBlockContentType',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_EStorageBlockContentType_Invalid', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EStorageBlockContentType_Unknown', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EStorageBlockContentType_FileSystem', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EStorageBlockContentType_Crypto', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EStorageBlockContentType_Raid', index=4, number=4,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=4756,
-  serialized_end=4981,
-)
-_sym_db.RegisterEnumDescriptor(_ESTORAGEBLOCKCONTENTTYPE)
-
+_ESYSTEMAUDIODIRECTION = DESCRIPTOR.enum_types_by_name['ESystemAudioDirection']
+ESystemAudioDirection = enum_type_wrapper.EnumTypeWrapper(_ESYSTEMAUDIODIRECTION)
+_ESYSTEMAUDIOCHANNEL = DESCRIPTOR.enum_types_by_name['ESystemAudioChannel']
+ESystemAudioChannel = enum_type_wrapper.EnumTypeWrapper(_ESYSTEMAUDIOCHANNEL)
+_ESYSTEMAUDIOPORTTYPE = DESCRIPTOR.enum_types_by_name['ESystemAudioPortType']
+ESystemAudioPortType = enum_type_wrapper.EnumTypeWrapper(_ESYSTEMAUDIOPORTTYPE)
+_ESYSTEMAUDIOPORTDIRECTION = DESCRIPTOR.enum_types_by_name['ESystemAudioPortDirection']
+ESystemAudioPortDirection = enum_type_wrapper.EnumTypeWrapper(_ESYSTEMAUDIOPORTDIRECTION)
+_ESYSTEMSERVICESTATE = DESCRIPTOR.enum_types_by_name['ESystemServiceState']
+ESystemServiceState = enum_type_wrapper.EnumTypeWrapper(_ESYSTEMSERVICESTATE)
+_EGRAPHICSPERFOVERLAYLEVEL = DESCRIPTOR.enum_types_by_name['EGraphicsPerfOverlayLevel']
+EGraphicsPerfOverlayLevel = enum_type_wrapper.EnumTypeWrapper(_EGRAPHICSPERFOVERLAYLEVEL)
+_EGPUPERFORMANCELEVEL = DESCRIPTOR.enum_types_by_name['EGPUPerformanceLevel']
+EGPUPerformanceLevel = enum_type_wrapper.EnumTypeWrapper(_EGPUPERFORMANCELEVEL)
+_ESPLITSCALINGFILTER = DESCRIPTOR.enum_types_by_name['ESplitScalingFilter']
+ESplitScalingFilter = enum_type_wrapper.EnumTypeWrapper(_ESPLITSCALINGFILTER)
+_ESPLITSCALINGSCALER = DESCRIPTOR.enum_types_by_name['ESplitScalingScaler']
+ESplitScalingScaler = enum_type_wrapper.EnumTypeWrapper(_ESPLITSCALINGSCALER)
+_EGAMESCOPEBLURMODE = DESCRIPTOR.enum_types_by_name['EGamescopeBlurMode']
+EGamescopeBlurMode = enum_type_wrapper.EnumTypeWrapper(_EGAMESCOPEBLURMODE)
+_ESLSHELPER = DESCRIPTOR.enum_types_by_name['ESLSHelper']
+ESLSHelper = enum_type_wrapper.EnumTypeWrapper(_ESLSHELPER)
+_EHDRVISUALIZATION = DESCRIPTOR.enum_types_by_name['EHDRVisualization']
+EHDRVisualization = enum_type_wrapper.EnumTypeWrapper(_EHDRVISUALIZATION)
+_EHDRTONEMAPOPERATOR = DESCRIPTOR.enum_types_by_name['EHDRToneMapOperator']
+EHDRToneMapOperator = enum_type_wrapper.EnumTypeWrapper(_EHDRTONEMAPOPERATOR)
+_ECPUGOVERNOR = DESCRIPTOR.enum_types_by_name['ECPUGovernor']
+ECPUGovernor = enum_type_wrapper.EnumTypeWrapper(_ECPUGOVERNOR)
+_EUPDATERTYPE = DESCRIPTOR.enum_types_by_name['EUpdaterType']
+EUpdaterType = enum_type_wrapper.EnumTypeWrapper(_EUPDATERTYPE)
+_EUPDATERSTATE = DESCRIPTOR.enum_types_by_name['EUpdaterState']
+EUpdaterState = enum_type_wrapper.EnumTypeWrapper(_EUPDATERSTATE)
+_ESTORAGEBLOCKCONTENTTYPE = DESCRIPTOR.enum_types_by_name['EStorageBlockContentType']
 EStorageBlockContentType = enum_type_wrapper.EnumTypeWrapper(_ESTORAGEBLOCKCONTENTTYPE)
-_ESTORAGEBLOCKFILESYSTEMTYPE = _descriptor.EnumDescriptor(
-  name='EStorageBlockFileSystemType',
-  full_name='EStorageBlockFileSystemType',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='k_EStorageBlockFileSystemType_Invalid', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EStorageBlockFileSystemType_Unknown', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EStorageBlockFileSystemType_VFat', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='k_EStorageBlockFileSystemType_Ext4', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=4984,
-  serialized_end=5179,
-)
-_sym_db.RegisterEnumDescriptor(_ESTORAGEBLOCKFILESYSTEMTYPE)
-
+_ESTORAGEBLOCKFILESYSTEMTYPE = DESCRIPTOR.enum_types_by_name['EStorageBlockFileSystemType']
 EStorageBlockFileSystemType = enum_type_wrapper.EnumTypeWrapper(_ESTORAGEBLOCKFILESYSTEMTYPE)
+_ESTORAGEDRIVEMEDIATYPE = DESCRIPTOR.enum_types_by_name['EStorageDriveMediaType']
+EStorageDriveMediaType = enum_type_wrapper.EnumTypeWrapper(_ESTORAGEDRIVEMEDIATYPE)
+_ESYSTEMDISPLAYCOMPATIBILITYMODE = DESCRIPTOR.enum_types_by_name['ESystemDisplayCompatibilityMode']
+ESystemDisplayCompatibilityMode = enum_type_wrapper.EnumTypeWrapper(_ESYSTEMDISPLAYCOMPATIBILITYMODE)
+_ESTEAMOSCOMPATIBILITYCATEGORY = DESCRIPTOR.enum_types_by_name['ESteamOSCompatibilityCategory']
+ESteamOSCompatibilityCategory = enum_type_wrapper.EnumTypeWrapper(_ESTEAMOSCOMPATIBILITYCATEGORY)
+_ESTEAMOSCOMPATIBILITYRESULTDISPLAYTYPE = DESCRIPTOR.enum_types_by_name['ESteamOSCompatibilityResultDisplayType']
+ESteamOSCompatibilityResultDisplayType = enum_type_wrapper.EnumTypeWrapper(_ESTEAMOSCOMPATIBILITYRESULTDISPLAYTYPE)
+_ESTEAMDECKCOMPATIBILITYCATEGORY = DESCRIPTOR.enum_types_by_name['ESteamDeckCompatibilityCategory']
+ESteamDeckCompatibilityCategory = enum_type_wrapper.EnumTypeWrapper(_ESTEAMDECKCOMPATIBILITYCATEGORY)
+_ESTEAMDECKCOMPATIBILITYRESULTDISPLAYTYPE = DESCRIPTOR.enum_types_by_name['ESteamDeckCompatibilityResultDisplayType']
+ESteamDeckCompatibilityResultDisplayType = enum_type_wrapper.EnumTypeWrapper(_ESTEAMDECKCOMPATIBILITYRESULTDISPLAYTYPE)
+_ESTEAMDECKCOMPATIBILITYTESTRESULT = DESCRIPTOR.enum_types_by_name['ESteamDeckCompatibilityTestResult']
+ESteamDeckCompatibilityTestResult = enum_type_wrapper.EnumTypeWrapper(_ESTEAMDECKCOMPATIBILITYTESTRESULT)
+_EACSTATE = DESCRIPTOR.enum_types_by_name['EACState']
+EACState = enum_type_wrapper.EnumTypeWrapper(_EACSTATE)
+_EBATTERYSTATE = DESCRIPTOR.enum_types_by_name['EBatteryState']
+EBatteryState = enum_type_wrapper.EnumTypeWrapper(_EBATTERYSTATE)
+_EOSBRANCH = DESCRIPTOR.enum_types_by_name['EOSBranch']
+EOSBranch = enum_type_wrapper.EnumTypeWrapper(_EOSBRANCH)
+_EBROWSERGPUSTATUS = DESCRIPTOR.enum_types_by_name['EBrowserGPUStatus']
+EBrowserGPUStatus = enum_type_wrapper.EnumTypeWrapper(_EBROWSERGPUSTATUS)
+_EBROWSERFEATURESTATUS = DESCRIPTOR.enum_types_by_name['EBrowserFeatureStatus']
+EBrowserFeatureStatus = enum_type_wrapper.EnumTypeWrapper(_EBROWSERFEATURESTATUS)
+_EGPUDRIVERID = DESCRIPTOR.enum_types_by_name['EGpuDriverId']
+EGpuDriverId = enum_type_wrapper.EnumTypeWrapper(_EGPUDRIVERID)
+_ECOMMUNITYITEMCLASS = DESCRIPTOR.enum_types_by_name['ECommunityItemClass']
+ECommunityItemClass = enum_type_wrapper.EnumTypeWrapper(_ECOMMUNITYITEMCLASS)
+_ESTEAMDECKCOMPATIBILITYFEEDBACK = DESCRIPTOR.enum_types_by_name['ESteamDeckCompatibilityFeedback']
+ESteamDeckCompatibilityFeedback = enum_type_wrapper.EnumTypeWrapper(_ESTEAMDECKCOMPATIBILITYFEEDBACK)
+_EPROVIDEDECKFEEDBACKPREFERENCE = DESCRIPTOR.enum_types_by_name['EProvideDeckFeedbackPreference']
+EProvideDeckFeedbackPreference = enum_type_wrapper.EnumTypeWrapper(_EPROVIDEDECKFEEDBACKPREFERENCE)
+_ETOUCHGESTURE = DESCRIPTOR.enum_types_by_name['ETouchGesture']
+ETouchGesture = enum_type_wrapper.EnumTypeWrapper(_ETOUCHGESTURE)
+_ESESSIONPERSISTENCE = DESCRIPTOR.enum_types_by_name['ESessionPersistence']
+ESessionPersistence = enum_type_wrapper.EnumTypeWrapper(_ESESSIONPERSISTENCE)
+_ENEWSTEAMANNOUNCEMENTSTATE = DESCRIPTOR.enum_types_by_name['ENewSteamAnnouncementState']
+ENewSteamAnnouncementState = enum_type_wrapper.EnumTypeWrapper(_ENEWSTEAMANNOUNCEMENTSTATE)
+_EFORUMTYPE = DESCRIPTOR.enum_types_by_name['EForumType']
+EForumType = enum_type_wrapper.EnumTypeWrapper(_EFORUMTYPE)
+_ECOMMENTTHREADTYPE = DESCRIPTOR.enum_types_by_name['ECommentThreadType']
+ECommentThreadType = enum_type_wrapper.EnumTypeWrapper(_ECOMMENTTHREADTYPE)
+_EBROADCASTPERMISSION = DESCRIPTOR.enum_types_by_name['EBroadcastPermission']
+EBroadcastPermission = enum_type_wrapper.EnumTypeWrapper(_EBROADCASTPERMISSION)
+_EBROADCASTENCODERSETTING = DESCRIPTOR.enum_types_by_name['EBroadcastEncoderSetting']
+EBroadcastEncoderSetting = enum_type_wrapper.EnumTypeWrapper(_EBROADCASTENCODERSETTING)
+_ECLOUDGAMINGPLATFORM = DESCRIPTOR.enum_types_by_name['ECloudGamingPlatform']
+ECloudGamingPlatform = enum_type_wrapper.EnumTypeWrapper(_ECLOUDGAMINGPLATFORM)
+_ECOMPROMISEDETECTIONTYPE = DESCRIPTOR.enum_types_by_name['ECompromiseDetectionType']
+ECompromiseDetectionType = enum_type_wrapper.EnumTypeWrapper(_ECOMPROMISEDETECTIONTYPE)
+_EASYNCGAMESESSIONUSERSTATE = DESCRIPTOR.enum_types_by_name['EAsyncGameSessionUserState']
+EAsyncGameSessionUserState = enum_type_wrapper.EnumTypeWrapper(_EASYNCGAMESESSIONUSERSTATE)
+_EASYNCGAMESESSIONUSERVISIBILITY = DESCRIPTOR.enum_types_by_name['EAsyncGameSessionUserVisibility']
+EAsyncGameSessionUserVisibility = enum_type_wrapper.EnumTypeWrapper(_EASYNCGAMESESSIONUSERVISIBILITY)
+_EGAMERECORDINGTYPE = DESCRIPTOR.enum_types_by_name['EGameRecordingType']
+EGameRecordingType = enum_type_wrapper.EnumTypeWrapper(_EGAMERECORDINGTYPE)
+_EEXPORTCODEC = DESCRIPTOR.enum_types_by_name['EExportCodec']
+EExportCodec = enum_type_wrapper.EnumTypeWrapper(_EEXPORTCODEC)
+_EPROTOAPPTYPE = DESCRIPTOR.enum_types_by_name['EProtoAppType']
+EProtoAppType = enum_type_wrapper.EnumTypeWrapper(_EPROTOAPPTYPE)
+_ECHILDPROCESSQUERYCOMMAND = DESCRIPTOR.enum_types_by_name['EChildProcessQueryCommand']
+EChildProcessQueryCommand = enum_type_wrapper.EnumTypeWrapper(_ECHILDPROCESSQUERYCOMMAND)
+_ECHILDPROCESSQUERYEXITCODE = DESCRIPTOR.enum_types_by_name['EChildProcessQueryExitCode']
+EChildProcessQueryExitCode = enum_type_wrapper.EnumTypeWrapper(_ECHILDPROCESSQUERYEXITCODE)
+_EWINDOWSUPDATEINSTALLATIONIMPACT = DESCRIPTOR.enum_types_by_name['EWindowsUpdateInstallationImpact']
+EWindowsUpdateInstallationImpact = enum_type_wrapper.EnumTypeWrapper(_EWINDOWSUPDATEINSTALLATIONIMPACT)
+_EWINDOWSUPDATEREBOOTBEHAVIOR = DESCRIPTOR.enum_types_by_name['EWindowsUpdateRebootBehavior']
+EWindowsUpdateRebootBehavior = enum_type_wrapper.EnumTypeWrapper(_EWINDOWSUPDATEREBOOTBEHAVIOR)
+_EEXTERNALSALEEVENTTYPE = DESCRIPTOR.enum_types_by_name['EExternalSaleEventType']
+EExternalSaleEventType = enum_type_wrapper.EnumTypeWrapper(_EEXTERNALSALEEVENTTYPE)
+_EENHANCEDMARKETAPPEARANCESTATUS = DESCRIPTOR.enum_types_by_name['EEnhancedMarketAppearanceStatus']
+EEnhancedMarketAppearanceStatus = enum_type_wrapper.EnumTypeWrapper(_EENHANCEDMARKETAPPEARANCESTATUS)
+_ECONTENTREPORTSUBJECTTYPE = DESCRIPTOR.enum_types_by_name['EContentReportSubjectType']
+EContentReportSubjectType = enum_type_wrapper.EnumTypeWrapper(_ECONTENTREPORTSUBJECTTYPE)
+_ECONTROLLEDLEGALCATEGORYSTATUS = DESCRIPTOR.enum_types_by_name['EControlledLegalCategoryStatus']
+EControlledLegalCategoryStatus = enum_type_wrapper.EnumTypeWrapper(_ECONTROLLEDLEGALCATEGORYSTATUS)
+_ECONTENTMODERATORLEVEL = DESCRIPTOR.enum_types_by_name['EContentModeratorLevel']
+EContentModeratorLevel = enum_type_wrapper.EnumTypeWrapper(_ECONTENTMODERATORLEVEL)
+_ECONTENTREPORTRESOLUTION = DESCRIPTOR.enum_types_by_name['EContentReportResolution']
+EContentReportResolution = enum_type_wrapper.EnumTypeWrapper(_ECONTENTREPORTRESOLUTION)
+_ECONTENTREPORTREASON = DESCRIPTOR.enum_types_by_name['EContentReportReason']
+EContentReportReason = enum_type_wrapper.EnumTypeWrapper(_ECONTENTREPORTREASON)
 k_PublishedFileQueryType_RankedByVote = 0
 k_PublishedFileQueryType_RankedByPublicationDate = 1
 k_PublishedFileQueryType_AcceptedForGameRankedByAcceptanceDate = 2
@@ -784,17 +207,12 @@ k_EPersonaStateFlag_ClientTypeVR = 2048
 k_EPersonaStateFlag_LaunchTypeGamepad = 4096
 k_EPersonaStateFlag_LaunchTypeCompatTool = 8192
 k_EContentCheckProvider_Invalid = 0
-k_EContentCheckProvider_Google = 1
+k_EContentCheckProvider_Google_DEPRECATED = 1
 k_EContentCheckProvider_Amazon = 2
 k_EContentCheckProvider_Local = 3
-k_EBanContentCheckResult_NotScanned = 0
-k_EBanContentCheckResult_Reset = 1
-k_EBanContentCheckResult_NeedsChecking = 2
-k_EBanContentCheckResult_VeryUnlikely = 5
-k_EBanContentCheckResult_Unlikely = 30
-k_EBanContentCheckResult_Possible = 50
-k_EBanContentCheckResult_Likely = 75
-k_EBanContentCheckResult_VeryLikely = 100
+k_EContentCheckProvider_GoogleVertexAI = 4
+k_EContentCheckProvider_GoogleGemini = 5
+k_EContentCheckProvider_SteamLearn = 6
 k_EProfileCustomizationTypeInvalid = 0
 k_EProfileCustomizationTypeRareAchievementShowcase = 1
 k_EProfileCustomizationTypeGameCollector = 2
@@ -819,6 +237,7 @@ k_EProfileCustomizationTypeSalien = 20
 k_EProfileCustomizationTypeLoyaltyRewardReactions = 21
 k_EProfileCustomizationTypeSingleArtworkShowcase = 22
 k_EProfileCustomizationTypeAchievementsCompletionist = 23
+k_EProfileCustomizationTypeReplay = 24
 k_EPublishedFileStorageSystemInvalid = 0
 k_EPublishedFileStorageSystemLegacyCloud = 1
 k_EPublishedFileStorageSystemDepot = 2
@@ -826,6 +245,32 @@ k_EPublishedFileStorageSystemUGCCloud = 3
 k_ECloudStoragePersistStatePersisted = 0
 k_ECloudStoragePersistStateForgotten = 1
 k_ECloudStoragePersistStateDeleted = 2
+k_ESDCardFormatStage_Invalid = 0
+k_ESDCardFormatStage_Starting = 1
+k_ESDCardFormatStage_Testing = 2
+k_ESDCardFormatStage_Rescuing = 3
+k_ESDCardFormatStage_Formatting = 4
+k_ESDCardFormatStage_Finalizing = 5
+k_EStorageFormatStage_Invalid = 0
+k_EStorageFormatStage_NotRunning = 1
+k_EStorageFormatStage_Starting = 2
+k_EStorageFormatStage_Testing = 3
+k_EStorageFormatStage_Rescuing = 4
+k_EStorageFormatStage_Formatting = 5
+k_EStorageFormatStage_Finalizing = 6
+k_SystemFanControlMode_Invalid = 0
+k_SystemFanControlMode_Disabled = 1
+k_SystemFanControlMode_Default = 2
+k_EStartupMovieVariant_Invalid = 0
+k_EStartupMovieVariant_Generic = 1
+k_EStartupMovieVariant_DeckBlue = 2
+k_EStartupMovieVariant_DeckOrange = 3
+k_ColorGamutLabelSet_Default = 0
+k_ColorGamutLabelSet_sRGB_Native = 1
+k_ColorGamutLabelSet_Native_sRGB_Boosted = 2
+k_EWindowStackingOrder_Invalid = 0
+k_EWindowStackingOrder_Top = 1
+k_EWindowStackingOrder_Bottom = 2
 k_BluetoothDeviceType_Invalid = 0
 k_BluetoothDeviceType_Unknown = 1
 k_BluetoothDeviceType_Phone = 2
@@ -838,6 +283,90 @@ k_BluetoothDeviceType_Mouse = 8
 k_BluetoothDeviceType_Joystick = 9
 k_BluetoothDeviceType_Gamepad = 10
 k_BluetoothDeviceType_Keyboard = 11
+k_SystemAudioDirection_Invalid = 0
+k_SystemAudioDirection_Input = 1
+k_SystemAudioDirection_Output = 2
+k_SystemAudioChannel_Invalid = 0
+k_SystemAudioChannel_Aggregated = 1
+k_SystemAudioChannel_FrontLeft = 2
+k_SystemAudioChannel_FrontRight = 3
+k_SystemAudioChannel_LFE = 4
+k_SystemAudioChannel_BackLeft = 5
+k_SystemAudioChannel_BackRight = 6
+k_SystemAudioChannel_FrontCenter = 7
+k_SystemAudioChannel_Unknown = 8
+k_SystemAudioChannel_Mono = 9
+k_SystemAudioPortType_Invalid = 0
+k_SystemAudioPortType_Unknown = 1
+k_SystemAudioPortType_Audio32f = 2
+k_SystemAudioPortType_Midi8b = 3
+k_SystemAudioPortType_Video32RGBA = 4
+k_SystemAudioPortDirection_Invalid = 0
+k_SystemAudioPortDirection_Input = 1
+k_SystemAudioPortDirection_Output = 2
+k_ESystemServiceState_Unavailable = 0
+k_ESystemServiceState_Disabled = 1
+k_ESystemServiceState_Enabled = 2
+k_EGraphicsPerfOverlayLevel_Hidden = 0
+k_EGraphicsPerfOverlayLevel_Basic = 1
+k_EGraphicsPerfOverlayLevel_Medium = 2
+k_EGraphicsPerfOverlayLevel_Full = 3
+k_EGraphicsPerfOverlayLevel_Minimal = 4
+k_EGPUPerformanceLevel_Invalid = 0
+k_EGPUPerformanceLevel_Auto = 1
+k_EGPUPerformanceLevel_Manual = 2
+k_EGPUPerformanceLevel_Low = 3
+k_EGPUPerformanceLevel_High = 4
+k_EGPUPerformanceLevel_Profiling = 5
+k_ESplitScalingFilter_Invalid = 0
+k_ESplitScalingFilter_Linear = 1
+k_ESplitScalingFilter_Nearest = 2
+k_ESplitScalingFilter_Sharp = 3
+k_ESplitScalingFilter_NIS_Deprecated = 4
+k_ESplitScalingScaler_Invalid = 0
+k_ESplitScalingScaler_Auto = 1
+k_ESplitScalingScaler_Integer = 2
+k_ESplitScalingScaler_Fit = 3
+k_ESplitScalingScaler_Fill = 4
+k_ESplitScalingScaler_Stretch = 5
+k_EGamescopeBlurMode_Disabled = 0
+k_EGamescopeBlurMode_IfOccluded = 1
+k_EGamescopeBlurMode_Always = 2
+k_ESLSHelper_Invalid = 0
+k_ESLSHelper_Minidump = 1
+k_ESLSHelper_Kdump = 2
+k_ESLSHelper_Journal = 3
+k_ESLSHelper_Gpu = 4
+k_ESLSHelper_SystemInfo = 5
+k_ESLSHelper_Devcoredump = 6
+k_EHDRVisualization_None = 0
+k_EHDRVisualization_Heatmap = 1
+k_EHDRVisualization_Analysis = 2
+k_EHDRVisualization_HeatmapExtended = 3
+k_EHDRVisualization_HeatmapClassic = 4
+k_EHDRToneMapOperator_Invalid = 0
+k_EHDRToneMapOperator_Uncharted = 1
+k_EHDRToneMapOperator_Reinhard = 2
+k_ECPUGovernor_Invalid = 0
+k_ECPUGovernor_Perf = 1
+k_ECPUGovernor_Powersave = 2
+k_ECPUGovernor_Manual = 3
+k_EUpdaterType_Invalid = 0
+k_EUpdaterType_Client = 1
+k_EUpdaterType_OS = 2
+k_EUpdaterType_BIOS = 3
+k_EUpdaterType_Aggregated = 4
+k_EUpdaterType_Test1 = 5
+k_EUpdaterType_Test2 = 6
+k_EUpdaterType_Dummy = 7
+k_EUpdaterState_Invalid = 0
+k_EUpdaterState_UpToDate = 2
+k_EUpdaterState_Checking = 3
+k_EUpdaterState_Available = 4
+k_EUpdaterState_Applying = 5
+k_EUpdaterState_ClientRestartPending = 6
+k_EUpdaterState_SystemRestartPending = 7
+k_EUpdaterState_RollBack = 8
 k_EStorageBlockContentType_Invalid = 0
 k_EStorageBlockContentType_Unknown = 1
 k_EStorageBlockContentType_FileSystem = 2
@@ -847,22 +376,489 @@ k_EStorageBlockFileSystemType_Invalid = 0
 k_EStorageBlockFileSystemType_Unknown = 1
 k_EStorageBlockFileSystemType_VFat = 2
 k_EStorageBlockFileSystemType_Ext4 = 3
+k_EStorageDriveMediaType_Invalid = 0
+k_EStorageDriveMediaType_Unknown = 1
+k_EStorageDriveMediaType_HDD = 2
+k_EStorageDriveMediaType_SSD = 3
+k_EStorageDriveMediaType_Removable = 4
+k_ESystemDisplayCompatibilityMode_Invalid = 0
+k_ESystemDisplayCompatibilityMode_None = 1
+k_ESystemDisplayCompatibilityMode_MinimalBandwith = 2
+k_ESteamOSCompatibilityCategory_Unknown = 0
+k_ESteamOSCompatibilityCategory_Unsupported = 1
+k_ESteamOSCompatibilityCategory_Compatible = 2
+k_ESteamOSCompatibilityResultDisplayType_Invisible = 0
+k_ESteamOSCompatibilityResultDisplayType_Informational = 1
+k_ESteamOSCompatibilityResultDisplayType_Unsupported = 2
+k_ESteamOSCompatibilityResultDisplayType_Compatible = 3
+k_ESteamDeckCompatibilityCategory_Unknown = 0
+k_ESteamDeckCompatibilityCategory_Unsupported = 1
+k_ESteamDeckCompatibilityCategory_Playable = 2
+k_ESteamDeckCompatibilityCategory_Verified = 3
+k_ESteamDeckCompatibilityResultDisplayType_Invisible = 0
+k_ESteamDeckCompatibilityResultDisplayType_Informational = 1
+k_ESteamDeckCompatibilityResultDisplayType_Unsupported = 2
+k_ESteamDeckCompatibilityResultDisplayType_Playable = 3
+k_ESteamDeckCompatibilityResultDisplayType_Verified = 4
+k_ESteamDeckCompatibilityTestResult_Invalid = 0
+k_ESteamDeckCompatibilityTestResult_NotApplicable = 1
+k_ESteamDeckCompatibilityTestResult_Pass = 2
+k_ESteamDeckCompatibilityTestResult_Fail = 3
+k_ESteamDeckCompatibilityTestResult_FailMinor = 4
+k_EACState_Unknown = 0
+k_EACState_Disconnected = 1
+k_EACState_Connected = 2
+k_EACState_ConnectedSlow = 3
+k_EBatteryState_Unknown = 0
+k_EBatteryState_Discharging = 1
+k_EBatteryState_Charging = 2
+k_EBatteryState_Full = 3
+k_EOSBranch_Unknown = 0
+k_EOSBranch_Release = 1
+k_EOSBranch_ReleaseCandidate = 2
+k_EOSBranch_Beta = 3
+k_EOSBranch_BetaCandidate = 4
+k_EOSBranch_Preview = 5
+k_EOSBranch_PreviewCandidate = 6
+k_EOSBranch_Main = 7
+k_EOSBranch_Staging = 8
+k_EBrowserGPUStatus_Invalid = 0
+k_EBrowserGPUStatus_Enabled = 1
+k_EBrowserGPUStatus_DisabledUnknown = 2
+k_EBrowserGPUStatus_DisabledCrashCount = 4
+k_EBrowserGPUStatus_DisabledBlocklist = 5
+k_EBrowserGPUStatus_DisabledJSRequest = 6
+k_EBrowserGPUStatus_DisabledCommandLine = 7
+k_EBrowserGPUStatus_DisabledRuntimeDetect = 8
+k_EBrowserGPUStatus_DisabledChildCommandLine = 9
+k_EBrowserGPUStatus_DisabledCompositingCommandLine = 10
+k_EBrowserFeatureStatus_Invalid = 0
+k_EBrowserFeatureStatus_NotFound = 1
+k_EBrowserFeatureStatus_Unknown = 2
+k_EBrowserFeatureStatus_DisabledSoftware = 3
+k_EBrowserFeatureStatus_DisabledOff = 4
+k_EBrowserFeatureStatus_DisabledOffOk = 5
+k_EBrowserFeatureStatus_UnavailableSoftware = 6
+k_EBrowserFeatureStatus_UnavailableOff = 7
+k_EBrowserFeatureStatus_UnavailableOffOk = 8
+k_EBrowserFeatureStatus_EnabledReadback = 9
+k_EBrowserFeatureStatus_EnabledForce = 10
+k_EBrowserFeatureStatus_Enabled = 11
+k_EBrowserFeatureStatus_EnabledOn = 12
+k_EBrowserFeatureStatus_EnabledForceOn = 13
+k_EGpuDriverId_Invalid = 0
+k_EGpuDriverId_Unknown = 1
+k_EGpuDriverId_AmdProprietary = 2
+k_EGpuDriverId_AmdOpenSource = 3
+k_EGpuDriverId_MesaRadv = 4
+k_EGpuDriverId_NvidiaProprietary = 5
+k_EGpuDriverId_IntelPropietary = 6
+k_EGpuDriverId_MesaIntel = 7
+k_EGpuDriverId_QualcommProprietary = 8
+k_EGpuDriverId_ArmProprietary = 9
+k_EGpuDriverId_GoogleSwiftshader = 10
+k_EGpuDriverId_BroadcomProprietary = 11
+k_EGpuDriverId_MesaLLVMPipe = 12
+k_EGpuDriverId_MoltenVK = 13
+k_EGpuDriverId_MesaTurnip = 14
+k_EGpuDriverId_MesaPanVK = 15
+k_EGpuDriverId_MesaVenus = 16
+k_EGpuDriverId_MesaDozen = 17
+k_EGpuDriverId_MesaNVK = 18
+k_EGpuDriverId_MesaHoneyKrisp = 19
+k_ECommunityItemClass_Invalid = 0
+k_ECommunityItemClass_Badge = 1
+k_ECommunityItemClass_GameCard = 2
+k_ECommunityItemClass_ProfileBackground = 3
+k_ECommunityItemClass_Emoticon = 4
+k_ECommunityItemClass_BoosterPack = 5
+k_ECommunityItemClass_Consumable = 6
+k_ECommunityItemClass_GameGoo = 7
+k_ECommunityItemClass_ProfileModifier = 8
+k_ECommunityItemClass_Scene = 9
+k_ECommunityItemClass_SalienItem = 10
+k_ECommunityItemClass_Sticker = 11
+k_ECommunityItemClass_ChatEffect = 12
+k_ECommunityItemClass_MiniProfileBackground = 13
+k_ECommunityItemClass_AvatarFrame = 14
+k_ECommunityItemClass_AnimatedAvatar = 15
+k_ECommunityItemClass_SteamDeckKeyboardSkin = 16
+k_ECommunityItemClass_SteamDeckStartupMovie = 17
+k_ESteamDeckCompatibilityFeedback_Unset = 0
+k_ESteamDeckCompatibilityFeedback_Agree = 1
+k_ESteamDeckCompatibilityFeedback_Disagree = 2
+k_ESteamDeckCompatibilityFeedback_Ignore = 3
+k_EProvideDeckFeedbackPreference_Unset = 0
+k_EProvideDeckFeedbackPreference_Yes = 1
+k_EProvideDeckFeedbackPreference_No = 2
+k_ETouchGestureNone = 0
+k_ETouchGestureTouch = 1
+k_ETouchGestureTap = 2
+k_ETouchGestureDoubleTap = 3
+k_ETouchGestureShortPress = 4
+k_ETouchGestureLongPress = 5
+k_ETouchGestureLongTap = 6
+k_ETouchGestureTwoFingerTap = 7
+k_ETouchGestureTapCancelled = 8
+k_ETouchGesturePinchBegin = 9
+k_ETouchGesturePinchUpdate = 10
+k_ETouchGesturePinchEnd = 11
+k_ETouchGestureFlingStart = 12
+k_ETouchGestureFlingCancelled = 13
+k_ESessionPersistence_Invalid = -1
+k_ESessionPersistence_Ephemeral = 0
+k_ESessionPersistence_Persistent = 1
+k_ENewSteamAnnouncementState_Invalid = 0
+k_ENewSteamAnnouncementState_AllRead = 1
+k_ENewSteamAnnouncementState_NewAnnouncement = 2
+k_ENewSteamAnnouncementState_FeaturedAnnouncement = 3
+k_EForumType_Invalid = 0
+k_EForumType_General = 1
+k_EForumType_ReportedPosts = 2
+k_EForumType_Workshop = 3
+k_EForumType_PublishedFile = 4
+k_EForumType_Trading = 5
+k_EForumType_PlayTest = 6
+k_EForumType_Event = 7
+k_EForumType_Max = 8
+k_ECommentThreadTypeInvalid = 0
+k_ECommentThreadTypeScreenshot_Deprecated = 1
+k_ECommentThreadTypeWorkshopAccount_Developer = 2
+k_ECommentThreadTypeWorkshopAccount_Public = 3
+k_ECommentThreadTypePublishedFile_Developer = 4
+k_ECommentThreadTypePublishedFile_Public = 5
+k_ECommentThreadTypeTest = 6
+k_ECommentThreadTypeForumTopic = 7
+k_ECommentThreadTypeRecommendation = 8
+k_ECommentThreadTypeVideo_Deprecated = 9
+k_ECommentThreadTypeProfile = 10
+k_ECommentThreadTypeNewsPost = 11
+k_ECommentThreadTypeClan = 12
+k_ECommentThreadTypeClanAnnouncement = 13
+k_ECommentThreadTypeClanEvent = 14
+k_ECommentThreadTypeUserStatusPublished = 15
+k_ECommentThreadTypeUserReceivedNewGame = 16
+k_ECommentThreadTypePublishedFile_Announcement = 17
+k_ECommentThreadTypeModeratorMessage = 18
+k_ECommentThreadTypeClanCuratedApp = 19
+k_ECommentThreadTypeQAndASession = 20
+k_ECommentThreadTypeMax = 21
+k_EBroadcastPermissionDisabled = 0
+k_EBroadcastPermissionFriendsApprove = 1
+k_EBroadcastPermissionFriendsAllowed = 2
+k_EBroadcastPermissionPublic = 3
+k_EBroadcastPermissionSubscribers = 4
+k_EBroadcastEncoderBestQuality = 0
+k_EBroadcastEncoderBestPerformance = 1
+k_ECloudGamingPlatformNone = 0
+k_ECloudGamingPlatformValve = 1
+k_ECloudGamingPlatformNVIDIA = 2
+k_ECompromiseDetectionType_None = 0
+k_ECompromiseDetectionType_TradeEvent = 1
+k_ECompromiseDetectionType_ApiCallRate = 2
+k_ECompromiseDetectionType_Manual = 3
+k_ECompromiseDetectionType_TicketAction = 4
+k_ECompromiseDetectionType_MaliciousRefund = 5
+k_ECompromiseDetectionType_Move2FA = 6
+k_ECompromiseDetectionType_DeviceType = 7
+k_EAsyncGameSessionUserStateUnknown = -1
+k_EAsyncGameSessionUserStateWaitingForOthers = 0
+k_EAsyncGameSessionUserStateReadyForAction = 1
+k_EAsyncGameSessionUserStateDone = 2
+k_EAsyncGameSessionUserVisibilityEnvelopeAndSessionList = 0
+k_EAsyncGameSessionUserVisibilitySessionListOnly = 1
+k_EAsyncGameSessionUserVisibilityDismissed = 2
+k_EGameRecordingType_Unknown = 0
+k_EGameRecordingType_NotRecording = 1
+k_EGameRecordingType_ManualRecording = 2
+k_EGameRecordingType_BackgroundRecording = 3
+k_EGameRecordingType_Clip = 4
+k_EExportCodec_Default = 0
+k_EExportCodec_H264 = 1
+k_EExportCodec_H265 = 2
+k_EAppTypeInvalid = 0
+k_EAppTypeGame = 1
+k_EAppTypeApplication = 2
+k_EAppTypeTool = 4
+k_EAppTypeDemo = 8
+k_EAppTypeDeprected = 16
+k_EAppTypeDLC = 32
+k_EAppTypeGuide = 64
+k_EAppTypeDriver = 128
+k_EAppTypeConfig = 256
+k_EAppTypeHardware = 512
+k_EAppTypeFranchise = 1024
+k_EAppTypeVideo = 2048
+k_EAppTypePlugin = 4096
+k_EAppTypeMusicAlbum = 8192
+k_EAppTypeSeries = 16384
+k_EAppTypeComic = 32768
+k_EAppTypeBeta = 65536
+k_EAppTypeShortcut = 1073741824
+k_EAppTypeDepotOnly = -2147483648
+k_EChildProcessQueryCommand_Invalid = 0
+k_EChildProcessQueryCommand_GpuTopology = 1
+k_EChildProcessQueryCommand_Max = 2
+k_EChildProcessQueryExitCode_Success = 0
+k_EChildProcessQueryExitCode_ErrorCommandline = -1
+k_EChildProcessQueryExitCode_ErrorOther = -2
+k_EChildProcessQueryExitCode_ErrorUnimplemented = -3
+k_EChildProcessQueryExitCode_ErrorFileSave = -4
+k_EChildProcessQueryExitCode_ErrorNotSupportedByPlatform = -5
+k_EWindowsUpdateInstallationImpact_Unknown = -1
+k_EWindowsUpdateInstallationImpact_Normal = 0
+k_EWindowsUpdateInstallationImpact_Minor = 1
+k_EWindowsUpdateInstallationImpact_ExclusiveHandling = 2
+k_EWindowsUpdateRebootBehavior_Unknown = -1
+k_EWindowsUpdateRebootBehavior_NeverNeedsReboot = 0
+k_EWindowsUpdateRebootBehavior_AlwaysNeedsReboot = 1
+k_EWindowsUpdateRebootBehavior_MightNeedReboot = 2
+k_EExternalSaleEventType_Unknown = 0
+k_EExternalSaleEventType_Publisher = 1
+k_EExternalSaleEventType_Showcase = 2
+k_EExternalSaleEventType_Region = 3
+k_EExternalSaleEventType_Theme = 4
+k_EExternalSaleEventType_Franchise = 5
+k_EnhancedMarketAppearanceStatus_None = 0
+k_EnhancedMarketAppearanceStatus_Pending = 1
+k_EnhancedMarketAppearanceStatus_InProgress = 2
+k_EnhancedMarketAppearanceStatus_Completed = 3
+k_EContentReportSubjectType_Invalid = 0
+k_EContentReportSubjectType_ForumPost = 1
+k_EContentReportSubjectType_Unused = 2
+k_EContentReportSubjectType_UGCFile = 3
+k_EContentReportSubjectType_FriendChatMsg = 4
+k_EContentReportSubjectType_ChatRoomMsg = 5
+k_EContentReportSubjectType_MAX = 6
+k_EControlledLegalCategoryStatus_None = 0
+k_EControlledLegalCategoryStatus_Accused = 1
+k_EControlledLegalCategoryStatus_Convicted = 2
+k_EControlledLegalCategoryStatus_Acquitted = 3
+k_EContentModeratorLevel_Any = 0
+k_EContentModeratorLevel_Supervisor = 1
+k_EContentModeratorLevel_Valve = 10
+k_EContentModeratorLevel_MAX = 11
+k_EContentReportResolution_Unresolved = 0
+k_EContentReportResolution_Acquitted = 1
+k_EContentReportResolution_Removed = 2
+k_EContentReportResolution_Relabelled = 3
+k_EContentReportResolution_Suspicious = 4
+k_EContentReportResolution_MAX = 5
+k_EContentReportReason_Invalid = 0
+k_EContentReportReason_None = 1
+k_EContentReportReason_Unknown = 2
+k_EContentReportReason_Harassment = 3
+k_EContentReportReason_BullyingAndIntimidation = 4
+k_EContentReportReason_Stalking = 5
+k_EContentReportReason_Doxxing = 6
+k_EContentReportReason_OtherHarassment = 7
+k_EContentReportReason_EncouragingViolence = 8
+k_EContentReportReason_EncouragingSelfHarm = 9
+k_EContentReportReason_EncouragingSuicide = 10
+k_EContentReportReason_OtherViolenceOrSelfHarm = 11
+k_EContentReportReason_PhishingOrAccountTheft = 12
+k_EContentReportReason_AttemptedScamming = 13
+k_EContentReportReason_LinkingToMaliciousContent = 14
+k_EContentReportReason_Impersonation = 15
+k_EContentReportReason_OtherScamsAndTheft = 16
+k_EContentReportReason_EncouragingTerrorism = 17
+k_EContentReportReason_OrganizingTerrorism = 18
+k_EContentReportReason_OtherTerrorism = 19
+k_EContentReportReason_TargetedAbuse = 20
+k_EContentReportReason_NamingAndShaming = 21
+k_EContentReportReason_Discrimination = 22
+k_EContentReportReason_OtherAbuse = 23
+k_EContentReportReason_Trolling = 24
+k_EContentReportReason_Baiting = 25
+k_EContentReportReason_Derailing = 26
+k_EContentReportReason_OtherDisruptive = 27
+k_EContentReportReason_Spam = 28
+k_EContentReportReason_Begging = 29
+k_EContentReportReason_Reposting = 30
+k_EContentReportReason_OtherOffTopic = 31
+k_EContentReportReason_CSAMSexualContent = 32
+k_EContentReportReason_CSAMGroomingOrEnticement = 33
+k_EContentReportReason_CSAMOther = 34
+k_EContentReportReason_NudityOrSexualContent = 35
+k_EContentReportReason_NonConsensualMaterial = 36
+k_EContentReportReason_Advertising = 37
+k_EContentReportReason_ReferralLinks = 38
+k_EContentReportReason_Gambling = 39
+k_EContentReportReason_Raffles = 40
+k_EContentReportReason_OtherCommercialActivity = 41
+k_EContentReportReason_InauthenticReview = 42
+k_EContentReportReason_HiddenAdvertisementOrCommercialCommunication = 43
+k_EContentReportReason_MisleadingInformationAboutGoodsOrServices = 44
+k_EContentReportReason_MisleadingInformationAboutConsumerRights = 45
+k_EContentReportReason_NoncomplianceWithPricingRegulations = 46
+k_EContentReportReason_RightToBeForgottenViolation = 47
+k_EContentReportReason_MissingProcessingGroundForData = 48
+k_EContentReportReason_OtherDataProtectionAndPrivacyViolation = 49
+k_EContentReportReason_GenderedHarassment = 50
+k_EContentReportReason_GenderedBullyingAndIntimidation = 51
+k_EContentReportReason_GenderedStalking = 52
+k_EContentReportReason_GenderedDoxxing = 53
+k_EContentReportReason_GenderedOtherHarassment = 54
+k_EContentReportReason_GenderedEncouragingViolence = 55
+k_EContentReportReason_GenderedTargetedAbuse = 56
+k_EContentReportReason_CSAMFakedSexualContent = 57
+k_EContentReportReason_GenderedNonConsensualMaterial = 58
+k_EContentReportReason_FakedGenderedNonConsensualMaterial = 59
+k_EContentReportReason_FakedNonConsensualMaterial = 60
+k_EContentReportReason_NegativeEffectonDiscourseOrElections = 61
+k_EContentReportReason_MAX = 62
 
 
-DESCRIPTOR.enum_types_by_name['EPublishedFileQueryType'] = _EPUBLISHEDFILEQUERYTYPE
-DESCRIPTOR.enum_types_by_name['EPublishedFileInappropriateProvider'] = _EPUBLISHEDFILEINAPPROPRIATEPROVIDER
-DESCRIPTOR.enum_types_by_name['EPublishedFileInappropriateResult'] = _EPUBLISHEDFILEINAPPROPRIATERESULT
-DESCRIPTOR.enum_types_by_name['EPersonaStateFlag'] = _EPERSONASTATEFLAG
-DESCRIPTOR.enum_types_by_name['EContentCheckProvider'] = _ECONTENTCHECKPROVIDER
-DESCRIPTOR.enum_types_by_name['EBanContentCheckResult'] = _EBANCONTENTCHECKRESULT
-DESCRIPTOR.enum_types_by_name['EProfileCustomizationType'] = _EPROFILECUSTOMIZATIONTYPE
-DESCRIPTOR.enum_types_by_name['EPublishedFileStorageSystem'] = _EPUBLISHEDFILESTORAGESYSTEM
-DESCRIPTOR.enum_types_by_name['ECloudStoragePersistState'] = _ECLOUDSTORAGEPERSISTSTATE
-DESCRIPTOR.enum_types_by_name['EBluetoothDeviceType'] = _EBLUETOOTHDEVICETYPE
-DESCRIPTOR.enum_types_by_name['EStorageBlockContentType'] = _ESTORAGEBLOCKCONTENTTYPE
-DESCRIPTOR.enum_types_by_name['EStorageBlockFileSystemType'] = _ESTORAGEBLOCKFILESYSTEMTYPE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
+if _descriptor._USE_C_DESCRIPTORS == False:
 
-
-DESCRIPTOR._options = None
+  DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'H\001'
+  _EPUBLISHEDFILEQUERYTYPE._serialized_start=16
+  _EPUBLISHEDFILEQUERYTYPE._serialized_end=1296
+  _EPUBLISHEDFILEINAPPROPRIATEPROVIDER._serialized_start=1299
+  _EPUBLISHEDFILEINAPPROPRIATEPROVIDER._serialized_end=1487
+  _EPUBLISHEDFILEINAPPROPRIATERESULT._serialized_start=1490
+  _EPUBLISHEDFILEINAPPROPRIATERESULT._serialized_end=1831
+  _EPERSONASTATEFLAG._serialized_start=1834
+  _EPERSONASTATEFLAG._serialized_end=2267
+  _ECONTENTCHECKPROVIDER._serialized_start=2270
+  _ECONTENTCHECKPROVIDER._serialized_end=2574
+  _EPROFILECUSTOMIZATIONTYPE._serialized_start=2577
+  _EPROFILECUSTOMIZATIONTYPE._serialized_end=3748
+  _EPUBLISHEDFILESTORAGESYSTEM._serialized_start=3751
+  _EPUBLISHEDFILESTORAGESYSTEM._serialized_end=3951
+  _ECLOUDSTORAGEPERSISTSTATE._serialized_start=3954
+  _ECLOUDSTORAGEPERSISTSTATE._serialized_end=4105
+  _ESDCARDFORMATSTAGE._serialized_start=4108
+  _ESDCARDFORMATSTAGE._serialized_end=4340
+  _ESTORAGEFORMATSTAGE._serialized_start=4343
+  _ESTORAGEFORMATSTAGE._serialized_end=4620
+  _ESYSTEMFANCONTROLMODE._serialized_start=4623
+  _ESYSTEMFANCONTROLMODE._serialized_end=4755
+  _ESTARTUPMOVIEVARIANT._serialized_start=4758
+  _ESTARTUPMOVIEVARIANT._serialized_end=4928
+  _ECOLORGAMUTLABELSET._serialized_start=4931
+  _ECOLORGAMUTLABELSET._serialized_end=5070
+  _EWINDOWSTACKINGORDER._serialized_start=5072
+  _EWINDOWSTACKINGORDER._serialized_end=5197
+  _EBLUETOOTHDEVICETYPE._serialized_start=5200
+  _EBLUETOOTHDEVICETYPE._serialized_end=5648
+  _ESYSTEMAUDIODIRECTION._serialized_start=5651
+  _ESYSTEMAUDIODIRECTION._serialized_end=5779
+  _ESYSTEMAUDIOCHANNEL._serialized_start=5782
+  _ESYSTEMAUDIOCHANNEL._serialized_end=6151
+  _ESYSTEMAUDIOPORTTYPE._serialized_start=6154
+  _ESYSTEMAUDIOPORTTYPE._serialized_end=6355
+  _ESYSTEMAUDIOPORTDIRECTION._serialized_start=6358
+  _ESYSTEMAUDIOPORTDIRECTION._serialized_end=6502
+  _ESYSTEMSERVICESTATE._serialized_start=6505
+  _ESYSTEMSERVICESTATE._serialized_end=6636
+  _EGRAPHICSPERFOVERLAYLEVEL._serialized_start=6639
+  _EGRAPHICSPERFOVERLAYLEVEL._serialized_end=6864
+  _EGPUPERFORMANCELEVEL._serialized_start=6867
+  _EGPUPERFORMANCELEVEL._serialized_end=7096
+  _ESPLITSCALINGFILTER._serialized_start=7099
+  _ESPLITSCALINGFILTER._serialized_end=7299
+  _ESPLITSCALINGSCALER._serialized_start=7302
+  _ESPLITSCALINGSCALER._serialized_end=7523
+  _EGAMESCOPEBLURMODE._serialized_start=7525
+  _EGAMESCOPEBLURMODE._serialized_end=7650
+  _ESLSHELPER._serialized_start=7653
+  _ESLSHELPER._serialized_end=7849
+  _EHDRVISUALIZATION._serialized_start=7852
+  _EHDRVISUALIZATION._serialized_end=8049
+  _EHDRTONEMAPOPERATOR._serialized_start=8052
+  _EHDRTONEMAPOPERATOR._serialized_end=8181
+  _ECPUGOVERNOR._serialized_start=8183
+  _ECPUGOVERNOR._serialized_end=8307
+  _EUPDATERTYPE._serialized_start=8310
+  _EUPDATERTYPE._serialized_end=8536
+  _EUPDATERSTATE._serialized_start=8539
+  _EUPDATERSTATE._serialized_end=8818
+  _ESTORAGEBLOCKCONTENTTYPE._serialized_start=8821
+  _ESTORAGEBLOCKCONTENTTYPE._serialized_end=9046
+  _ESTORAGEBLOCKFILESYSTEMTYPE._serialized_start=9049
+  _ESTORAGEBLOCKFILESYSTEMTYPE._serialized_end=9244
+  _ESTORAGEDRIVEMEDIATYPE._serialized_start=9247
+  _ESTORAGEDRIVEMEDIATYPE._serialized_end=9455
+  _ESYSTEMDISPLAYCOMPATIBILITYMODE._serialized_start=9458
+  _ESYSTEMDISPLAYCOMPATIBILITYMODE._serialized_end=9637
+  _ESTEAMOSCOMPATIBILITYCATEGORY._serialized_start=9640
+  _ESTEAMOSCOMPATIBILITYCATEGORY._serialized_end=9813
+  _ESTEAMOSCOMPATIBILITYRESULTDISPLAYTYPE._serialized_start=9816
+  _ESTEAMOSCOMPATIBILITYRESULTDISPLAYTYPE._serialized_end=10087
+  _ESTEAMDECKCOMPATIBILITYCATEGORY._serialized_start=10090
+  _ESTEAMDECKCOMPATIBILITYCATEGORY._serialized_end=10317
+  _ESTEAMDECKCOMPATIBILITYRESULTDISPLAYTYPE._serialized_start=10320
+  _ESTEAMDECKCOMPATIBILITYRESULTDISPLAYTYPE._serialized_end=10656
+  _ESTEAMDECKCOMPATIBILITYTESTRESULT._serialized_start=10659
+  _ESTEAMDECKCOMPATIBILITYTESTRESULT._serialized_end=10941
+  _EACSTATE._serialized_start=10943
+  _EACSTATE._serialized_end=11062
+  _EBATTERYSTATE._serialized_start=11065
+  _EBATTERYSTATE._serialized_end=11198
+  _EOSBRANCH._serialized_start=11201
+  _EOSBRANCH._serialized_end=11455
+  _EBROWSERGPUSTATUS._serialized_start=11458
+  _EBROWSERGPUSTATUS._serialized_end=11912
+  _EBROWSERFEATURESTATUS._serialized_start=11915
+  _EBROWSERFEATURESTATUS._serialized_end=12526
+  _EGPUDRIVERID._serialized_start=12529
+  _EGPUDRIVERID._serialized_end=13200
+  _ECOMMUNITYITEMCLASS._serialized_start=13203
+  _ECOMMUNITYITEMCLASS._serialized_end=13936
+  _ESTEAMDECKCOMPATIBILITYFEEDBACK._serialized_start=13939
+  _ESTEAMDECKCOMPATIBILITYFEEDBACK._serialized_end=14156
+  _EPROVIDEDECKFEEDBACKPREFERENCE._serialized_start=14159
+  _EPROVIDEDECKFEEDBACKPREFERENCE._serialized_end=14318
+  _ETOUCHGESTURE._serialized_start=14321
+  _ETOUCHGESTURE._serialized_end=14754
+  _ESESSIONPERSISTENCE._serialized_start=14757
+  _ESESSIONPERSISTENCE._serialized_end=14897
+  _ENEWSTEAMANNOUNCEMENTSTATE._serialized_start=14900
+  _ENEWSTEAMANNOUNCEMENTSTATE._serialized_end=15117
+  _EFORUMTYPE._serialized_start=15120
+  _EFORUMTYPE._serialized_end=15374
+  _ECOMMENTTHREADTYPE._serialized_start=15377
+  _ECOMMENTTHREADTYPE._serialized_end=16284
+  _EBROADCASTPERMISSION._serialized_start=16287
+  _EBROADCASTPERMISSION._serialized_end=16502
+  _EBROADCASTENCODERSETTING._serialized_start=16504
+  _EBROADCASTENCODERSETTING._serialized_end=16606
+  _ECLOUDGAMINGPLATFORM._serialized_start=16608
+  _ECLOUDGAMINGPLATFORM._serialized_end=16729
+  _ECOMPROMISEDETECTIONTYPE._serialized_start=16732
+  _ECOMPROMISEDETECTIONTYPE._serialized_end=17097
+  _EASYNCGAMESESSIONUSERSTATE._serialized_start=17100
+  _EASYNCGAMESESSIONUSERSTATE._serialized_end=17314
+  _EASYNCGAMESESSIONUSERVISIBILITY._serialized_start=17317
+  _EASYNCGAMESESSIONUSERVISIBILITY._serialized_end=17513
+  _EGAMERECORDINGTYPE._serialized_start=17516
+  _EGAMERECORDINGTYPE._serialized_end=17728
+  _EEXPORTCODEC._serialized_start=17730
+  _EEXPORTCODEC._serialized_end=17822
+  _EPROTOAPPTYPE._serialized_start=17825
+  _EPROTOAPPTYPE._serialized_end=18315
+  _ECHILDPROCESSQUERYCOMMAND._serialized_start=18318
+  _ECHILDPROCESSQUERYCOMMAND._serialized_end=18468
+  _ECHILDPROCESSQUERYEXITCODE._serialized_start=18471
+  _ECHILDPROCESSQUERYEXITCODE._serialized_end=18845
+  _EWINDOWSUPDATEINSTALLATIONIMPACT._serialized_start=18848
+  _EWINDOWSUPDATEINSTALLATIONIMPACT._serialized_end=19090
+  _EWINDOWSUPDATEREBOOTBEHAVIOR._serialized_start=19093
+  _EWINDOWSUPDATEREBOOTBEHAVIOR._serialized_end=19335
+  _EEXTERNALSALEEVENTTYPE._serialized_start=19338
+  _EEXTERNALSALEEVENTTYPE._serialized_end=19592
+  _EENHANCEDMARKETAPPEARANCESTATUS._serialized_start=19595
+  _EENHANCEDMARKETAPPEARANCESTATUS._serialized_end=19814
+  _ECONTENTREPORTSUBJECTTYPE._serialized_start=19817
+  _ECONTENTREPORTSUBJECTTYPE._serialized_end=20138
+  _ECONTROLLEDLEGALCATEGORYSTATUS._serialized_start=20141
+  _ECONTROLLEDLEGALCATEGORYSTATUS._serialized_end=20358
+  _ECONTENTMODERATORLEVEL._serialized_start=20361
+  _ECONTENTMODERATORLEVEL._serialized_end=20530
+  _ECONTENTREPORTRESOLUTION._serialized_start=20533
+  _ECONTENTREPORTRESOLUTION._serialized_end=20806
+  _ECONTENTREPORTREASON._serialized_start=20809
+  _ECONTENTREPORTREASON._serialized_end=23818
 # @@protoc_insertion_point(module_scope)

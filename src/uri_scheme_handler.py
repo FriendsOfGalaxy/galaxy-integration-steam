@@ -9,7 +9,7 @@ if platform.system().lower() == "windows":
     def is_uri_handler_installed(protocol):
         key = None
         try:
-            key = winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, r"{}\shell\open\command".format(protocol))
+            key = winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, rf"{protocol}\shell\open\command")
             executable_template = winreg.QueryValue(key, None)
             splitted_exec = shlex.split(executable_template)
             if not splitted_exec:

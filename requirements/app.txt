@@ -1,13 +1,10 @@
-galaxy.plugin.api==0.65
+galaxy.plugin.api==0.69
 
 # steam_network backend
-protobuf==3.18.1
-vdf==3.2
+protobuf==3.20.3  # the last version that works with python 3.7
+vdf==3.4
 pyobjc-framework-CoreServices==5.1.2; sys_platform == 'darwin'
 websockets==8.1
-dataclasses-json==0.4.2
-
-# public_profiles backend
-xmltodict==0.12.0
-requests-html==0.10.0
-pyppeteer==0.2.4  # requests-html dependency; 0.2.5 imports version from dist-info which we remove while building
+dataclasses-json==0.6.7
+rsa==4.9
+cryptography==45.0.7  # latest version that works with python 3.7

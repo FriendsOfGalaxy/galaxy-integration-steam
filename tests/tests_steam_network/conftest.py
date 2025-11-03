@@ -2,8 +2,8 @@ from unittest.mock import MagicMock
 
 import pytest
 from galaxy.unittest.mock import AsyncMock
+from .pytest_asyncio_helpers import resolve_async_fixture
 
-from plugin import BackendMode
 
 
 @pytest.fixture
@@ -26,7 +26,7 @@ def create_sn_plugin(create_plugin_with_backend, mocker, websocket_client):
     """sn stands for SteamNetwork"""
     async def function(cache):
         mocker.patch('backend_steam_network.WebSocketClient', return_value=websocket_client)
-        plugin = create_plugin_with_backend(BackendMode.SteamNetwork, cache=cache)
+        plugin = create_plugin_with_backend(cache=cache)
         return plugin
 
     return function
@@ -34,7 +34,8 @@ def create_sn_plugin(create_plugin_with_backend, mocker, websocket_client):
 
 @pytest.fixture
 async def plugin(create_sn_plugin):
-    return await create_sn_plugin(cache={})
+    plugin_factory = create_sn_plugin
+    return await plugin_factory(cache={})
 
 
 @pytest.fixture
@@ -62,4 +63,5 @@ async def create_authenticated_sn_plugin(create_sn_plugin, credentials):
 
 @pytest.fixture()
 async def authenticated_plugin(create_authenticated_sn_plugin):
-    return await create_authenticated_sn_plugin({})
+    plugin_factory = await resolve_async_fixture(create_authenticated_sn_plugin)
+    return await plugin_factory({})

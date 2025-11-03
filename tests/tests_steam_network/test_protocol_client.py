@@ -2,16 +2,19 @@ import asyncio
 from unittest.mock import MagicMock, ANY, Mock
 from typing import NamedTuple, List
 import json
+import hashlib
 
 import pytest
 
 from galaxy.unittest.mock import async_return_value, AsyncMock, skip_loop
+from .pytest_asyncio_helpers import resolve_async_fixture
 from galaxy.api.errors import AccessDenied, Banned, BackendNotAvailable
 
 from steam_network.protocol.protobuf_client import SteamLicense
 from steam_network.protocol.consts import EFriendRelationship, STEAM_CLIENT_APP_ID, EResult
 from steam_network.protocol_client import ProtocolClient
-from steam_network.protocol.types import ProtoUserInfo
+from steam_network.protocol.steam_types import ProtoUserInfo
+from steam_network.authentication_cache import AuthenticationCache
 
 
 class ProtoResponse(NamedTuple):
@@ -49,7 +52,7 @@ def stats_cache():
 
 @pytest.fixture()
 def user_info_cache():
-    return AsyncMock()
+    return MagicMock()
 
 @pytest.fixture()
 def local_machine_cache():
@@ -64,59 +67,65 @@ def used_server_cellid():
     return MagicMock()
 
 @pytest.fixture()
-def ownership_ticket_cache():
-    return MagicMock()
+def authentication_cache():
+    return MagicMock(AuthenticationCache)
 
 @pytest.fixture()
 def translations_cache():
     return dict()
 
 @pytest.fixture
-async def client(protobuf_client, friends_cache, games_cache, translations_cache, stats_cache, times_cache, user_info_cache, local_machine_cache, ownership_ticket_cache, used_server_cellid):
-    return ProtocolClient(protobuf_client, friends_cache, games_cache, translations_cache, stats_cache, times_cache, user_info_cache, local_machine_cache, ownership_ticket_cache, used_server_cellid)
+async def client(protobuf_client, friends_cache, games_cache, translations_cache, stats_cache, times_cache, authentication_cache, user_info_cache, local_machine_cache, used_server_cellid):
+    return ProtocolClient(protobuf_client, friends_cache, games_cache, translations_cache, stats_cache, times_cache, authentication_cache, user_info_cache, local_machine_cache, used_server_cellid)
 
 
 @pytest.mark.asyncio
 async def test_close(client, protobuf_client):
-    protobuf_client.close.return_value = async_return_value(None)
-    await client.close(True)
-    protobuf_client.close.assert_called_once_with(True)
+    client_instance = await resolve_async_fixture(client)
+    client_instance._protobuf_client.close = AsyncMock(return_value=None)
+    await client_instance.close(True)
+    client_instance._protobuf_client.close.assert_called_once_with(True)
 
 
 @pytest.mark.asyncio
 async def test_authenticate_success(client, protobuf_client):
-    protobuf_client.log_on_token.return_value = async_return_value(None)
-    protobuf_client.account_info_retrieved.wait.return_value = async_return_value(True, loop_iterations_delay=1)
-    auth_task = asyncio.create_task(client.authenticate_token(STEAM_ID, ACCOUNT_NAME, TOKEN, None))
+    client_instance = await resolve_async_fixture(client)
+    client_instance._protobuf_client.send_log_on_token_message = AsyncMock(return_value=None)
+    client_instance._protobuf_client.log_on_token_handler = AsyncMock()
+    auth_task = asyncio.create_task(client_instance.finalize_login(ACCOUNT_NAME, STEAM_ID, TOKEN, None))
     await skip_loop()
-    await protobuf_client.log_on_handler(EResult.OK)
+    await client_instance._login_token_handler(EResult.OK, STEAM_ID, None)
     await auth_task
-    assert protobuf_client.steam_id == STEAM_ID
-    protobuf_client.log_on_token.assert_called_once_with(ACCOUNT_NAME, TOKEN, ANY, ANY, ANY, ANY)
+    assert client_instance._user_info_cache.steam_id == STEAM_ID
+    client_instance._protobuf_client.send_log_on_token_message.assert_called_once_with(ACCOUNT_NAME, STEAM_ID, TOKEN, ANY, ANY, ANY)
 
 
 @pytest.mark.asyncio
 async def test_authenticate_failure(client, protobuf_client):
+    from steam_network.enums import UserActionRequired
+    client_instance = await resolve_async_fixture(client)
     auth_lost_handler = MagicMock()
-    protobuf_client.log_on_token.return_value = async_return_value(None)
-    auth_task = asyncio.create_task(client.authenticate_token(STEAM_ID, ACCOUNT_NAME, TOKEN, auth_lost_handler))
+    client_instance._protobuf_client.send_log_on_token_message = AsyncMock(return_value=None)
+    client_instance._protobuf_client.log_on_token_handler = AsyncMock()
+    auth_task = asyncio.create_task(client_instance.finalize_login(ACCOUNT_NAME, STEAM_ID, TOKEN, auth_lost_handler))
     await skip_loop()
-    await protobuf_client.log_on_handler(EResult.AccessDenied)
-    with pytest.raises(AccessDenied):
-        await auth_task
+    await client_instance._login_token_handler(EResult.AccessDenied, None, None)
+    result = await auth_task
+    assert result == UserActionRequired.InvalidAuthData
     auth_lost_handler.assert_not_called()
 
 
 @pytest.mark.asyncio
 async def test_log_out(client, protobuf_client):
-    auth_lost_handler = MagicMock(return_value=async_return_value(None))
-    protobuf_client.log_on_token.return_value = async_return_value(None)
-    protobuf_client.account_info_retrieved.wait.return_value = async_return_value(True, loop_iterations_delay=1)
-    auth_task = asyncio.create_task(client.authenticate_token(STEAM_ID, ACCOUNT_NAME, TOKEN, auth_lost_handler))
+    client_instance = await resolve_async_fixture(client)
+    auth_lost_handler = AsyncMock()
+    client_instance._protobuf_client.send_log_on_token_message = AsyncMock(return_value=None)
+    client_instance._protobuf_client.log_on_token_handler = AsyncMock()
+    auth_task = asyncio.create_task(client_instance.finalize_login(ACCOUNT_NAME, STEAM_ID, TOKEN, auth_lost_handler))
     await skip_loop()
-    await protobuf_client.log_on_handler(EResult.OK)
+    await client_instance._login_token_handler(EResult.OK, STEAM_ID, None)
     await auth_task
-    await protobuf_client.log_off_handler(EResult.Banned)
+    await client_instance._log_off_handler(EResult.Banned)
     auth_lost_handler.assert_called_with(Banned({"result": EResult.Banned}))
 
 
@@ -125,31 +134,34 @@ async def test_protocol_connection_with_authentication(
     client,
     protobuf_client,
 ):
-    protobuf_client.log_on_token.return_value = async_return_value(None)
-    protobuf_client.run = AsyncMock()
-    protobuf_client.account_info_retrieved.wait.return_value = async_return_value(True, loop_iterations_delay=1)
+    client_instance = await resolve_async_fixture(client)
+    client_instance._protobuf_client.send_log_on_token_message = AsyncMock(return_value=None)
+    client_instance._protobuf_client.log_on_token_handler = AsyncMock()
+    client_instance._protobuf_client.run = AsyncMock()
 
-    auth_task = asyncio.create_task(client.authenticate_token(STEAM_ID, ACCOUNT_NAME, TOKEN, None))
-    run_task = asyncio.create_task(client.run())
+    auth_task = asyncio.create_task(client_instance.finalize_login(ACCOUNT_NAME, STEAM_ID, TOKEN, None))
+    run_task = asyncio.create_task(client_instance.run())
     await skip_loop()
-    await protobuf_client.log_on_handler(EResult.OK)
+    await client_instance._login_token_handler(EResult.OK, STEAM_ID, None)
     await auth_task
     await run_task
 
-    assert protobuf_client.steam_id == STEAM_ID
-    protobuf_client.log_on_token.assert_called_once_with(ACCOUNT_NAME, TOKEN, ANY, ANY, ANY, ANY)
+    assert client_instance._user_info_cache.steam_id == STEAM_ID
+    client_instance._protobuf_client.send_log_on_token_message.assert_called_once_with(ACCOUNT_NAME, STEAM_ID, TOKEN, ANY, ANY, ANY)
 
 
 @pytest.mark.asyncio
 async def test_protocol_connection_failure_with_backend_not_available__eresult48(client, protobuf_client):
-    protobuf_client.run.return_value = asyncio.create_task(protobuf_client.log_on_handler(EResult.TryAnotherCM))
+    client_instance = await resolve_async_fixture(client)
+    client_instance._protobuf_client.run = AsyncMock(side_effect=BackendNotAvailable())
 
     with pytest.raises(BackendNotAvailable):
-        await client.run()
+        await client_instance.run()
 
 
 @pytest.mark.asyncio
 async def test_relationship_initial(client, protobuf_client, friends_cache):
+    client_instance = await resolve_async_fixture(client)
     friends = {
         15: EFriendRelationship.Friend,
         56: EFriendRelationship.Friend
@@ -166,6 +178,7 @@ async def test_relationship_initial(client, protobuf_client, friends_cache):
 
 @pytest.mark.asyncio
 async def test_relationship_update(client, protobuf_client, friends_cache):
+    client_instance = await resolve_async_fixture(client)
     friends = {
         15: EFriendRelationship.Friend,
         56: EFriendRelationship.None_
@@ -181,6 +194,7 @@ async def test_relationship_update(client, protobuf_client, friends_cache):
 
 @pytest.mark.asyncio
 async def test_user_info(client, protobuf_client, friends_cache):
+    client_instance = await resolve_async_fixture(client)
     user_id = 15
     user_info = ProtoUserInfo("Ola")
     friends_cache.update = AsyncMock()
@@ -190,20 +204,16 @@ async def test_user_info(client, protobuf_client, friends_cache):
 
 @pytest.mark.asyncio
 async def test_license_import(client):
+    client_instance = await resolve_async_fixture(client)
     licenses_to_check = [SteamLicense(ProtoResponse(123), False),
                         SteamLicense(ProtoResponse(321), True)]
-    client._protobuf_client.get_packages_info = AsyncMock()
-    await client._license_import_handler(licenses_to_check)
+    client_instance._protobuf_client.get_packages_info = AsyncMock()
+    await client_instance._license_import_handler(licenses_to_check)
 
-    client._games_cache.reset_storing_map.assert_called_once()
-    client._protobuf_client.get_packages_info.assert_called_once_with(licenses_to_check)
+    client_instance._games_cache.reset_storing_map.assert_called_once()
+    client_instance._protobuf_client.get_packages_info.assert_called_once_with(licenses_to_check)
 
 
-@pytest.mark.asyncio
-async def test_register_cm_token(client, ownership_ticket_cache):
-    ticket = 'ticket_mock'
-    await client._app_ownership_ticket_handler(STEAM_CLIENT_APP_ID, ticket)
-    assert ownership_ticket_cache.ticket == ticket
 
 
 @pytest.mark.parametrize('bit_schema', [
@@ -243,6 +253,7 @@ async def test_stats_displayed_name(client, stats_cache, bit_schema):
     It happens that achievement schema has name in simple or rich form (with multilanguage support).
     Parser should get what is available with preference for english.
     """
+    client_instance = await resolve_async_fixture(client)
     stats = Mock()
     game_id, achievement_id = "1072390", 1
     schema = {
@@ -261,7 +272,7 @@ async def test_stats_displayed_name(client, stats_cache, bit_schema):
     }
     achievement_blocks = [AchievementBlock(achievement_id=achievement_id, unlock_time=[1511111111])]
 
-    client._stats_handler(game_id, stats, achievement_blocks, schema)
+    client_instance._stats_handler(game_id, stats, achievement_blocks, schema)
     stats_cache.update_stats.assert_called_once_with(game_id, stats, [
         {
             'id': 0,
@@ -273,6 +284,7 @@ async def test_stats_displayed_name(client, stats_cache, bit_schema):
 
 @pytest.mark.asyncio
 async def test_stats_handler_2_achievements_unlocked(client, stats_cache):
+    client_instance = await resolve_async_fixture(client)
     stats = Mock()
     game_id = "1072390"
     schema = json.loads("""
@@ -289,7 +301,7 @@ async def test_stats_handler_2_achievements_unlocked(client, stats_cache):
             0, 0, 1569838829, 1569839257, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         ])
     ]
-    client._stats_handler(game_id, stats, achievement_blocks, schema)
+    client_instance._stats_handler(game_id, stats, achievement_blocks, schema)
     stats_cache.update_stats.assert_called_once_with(game_id, stats, [
         {
             'id': 2,
@@ -316,6 +328,7 @@ async def test_stats_handler_for_not_matching_schema(client, stats_cache):
     we received an item with achievement_id=3 that contains a block of timestamps (like for regular achievement bits),
     but in the schema stat of id=3 was an ordinary numerical (type=2) stat ("Night Rider Miles Driven").
     """
+    client_instance = await resolve_async_fixture(client)
     stats = Mock()
     game_id = "24010"  # Train Simulator
     schema = json.loads("""
@@ -343,7 +356,7 @@ async def test_stats_handler_for_not_matching_schema(client, stats_cache):
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1569550456, 1569999999, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         ])
     ]
-    client._stats_handler(game_id, stats, achievement_blocks, schema)
+    client_instance._stats_handler(game_id, stats, achievement_blocks, schema)
     stats_cache.update_stats.assert_called_once_with(game_id, stats, [
         { 
             "id": 3 * 32 + 15,
@@ -356,3 +369,12 @@ async def test_stats_handler_for_not_matching_schema(client, stats_cache):
             "unlock_time": 1569999999,
         }
     ])
+
+def test_generate_machine_id():
+    machine_id = ProtocolClient._generate_machine_id()
+    assert isinstance(machine_id, bytes)
+    assert len(machine_id) == hashlib.sha256().digest_size
+    assert machine_id != hashlib.sha256(b'').digest()
+
+    #check if machine_id is the same as the previous one
+    assert machine_id == ProtocolClient._generate_machine_id()
