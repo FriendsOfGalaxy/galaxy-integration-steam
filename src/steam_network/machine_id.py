@@ -11,16 +11,31 @@ logger = logging.getLogger(__name__)
 # Cache for system ID to avoid repeated system calls
 _system_id_cache = None
 
-def machine_id() -> bytes:
+def machine_id_v2() -> bytes:
+    try:
+        return hashlib.sha256(f"{'|'.join(platform.uname())}|{os.getlogin()}|{__safe_get_node()}|{__system_id()}".encode()).digest()
+    except Exception as e:
+        logger.warning(f"Failed to generate machine ID: {e}")
+        return secrets.token_bytes(hashlib.sha256().digest_size)
+
+def machine_id_v3() -> bytes:
+    """Generate machine ID v3 (Python version independent)"""
+    # Exclude platform.uname() to avoid Python version dependencies
+    return hashlib.sha256(f"{os.getlogin()}|{__safe_get_node()}|{__system_id()}".encode()).digest()
+
+# Backward compatibility alias for protocol_client.py
+machine_id = machine_id_v3
+
+def __safe_get_node() -> str:
     try:
         node = uuid.getnode()
         if node != uuid.getnode():
             logger.warning("getnode is not deterministic, using fallback")
-            node = "fallback"
-        return hashlib.sha256(f"{'|'.join(platform.uname())}|{os.getlogin()}|{str(node)}|{__system_id()}".encode()).digest()
+            return "fallback"
+        return str(node)
     except Exception as e:
-        logger.warning(f"Failed to generate machine ID: {e}")
-        return secrets.token_bytes(hashlib.sha256().digest_size)
+        logger.warning(f"Failed to get node: {e}")
+        return "fallback"
 
 def __system_id_impl() -> bytes:
     """Internal implementation to get system ID by calling platform-specific commands."""
@@ -87,8 +102,7 @@ def __system_id() -> bytes:
     """Get system ID by calling platform-specific commands to get hardware UUID."""
     global _system_id_cache
     
-    if _system_id_cache is not None:
-        return _system_id_cache
-    
-    _system_id_cache = __system_id_impl()
+    if _system_id_cache is None:
+        _system_id_cache = __system_id_impl()
+
     return _system_id_cache

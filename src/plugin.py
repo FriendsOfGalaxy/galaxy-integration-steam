@@ -101,7 +101,7 @@ class SteamPlugin(Plugin):
         if self.__backend is None:
             raise UnknownError("Backend not set")
         return self.__backend
-    
+
     def handshake_complete(self):
         self.__backend = self._load_steam_network_backend()
         logger.info("Handshake complete")
@@ -116,7 +116,7 @@ class SteamPlugin(Plugin):
         add_game=self.add_game
 
         return SteamNetworkBackend(http_client, ssl_context, persistent_storage_state, persistent_cache, update_user_presence, store_credentials, add_game)
-    
+
     async def pass_login_credentials(self, step, credentials, cookies):
         result = await self._backend.pass_login_credentials(step, credentials, cookies)
         self.__store_current_version_in_cache(key=AUTH_SETUP_ON_VERSION__CACHE_KEY)
@@ -126,7 +126,7 @@ class SteamPlugin(Plugin):
         if self.persistent_cache.get(key) != __version__:
             self.persistent_cache[key] = __version__
             self.push_cache()
-        
+
     async def authenticate(self, stored_credentials=None):
         try:
             auth = await self._backend.authenticate(stored_credentials)
@@ -296,12 +296,12 @@ class SteamPlugin(Plugin):
             exe = get_client_executable()
             if exe is None or not os.path.exists(exe) or not exe.endswith(".exe"):
                 return
-            
+
             # Validate executable path for security
             if not _is_safe_executable_path(exe):
                 logger.warning("Unsafe executable path detected, skipping Steam shutdown")
                 return
-            
+
             # Use subprocess.exec instead of shell to prevent injection
             process = await asyncio.create_subprocess_exec(
                 exe, "-shutdown", "-silent",
@@ -321,26 +321,26 @@ def _is_safe_executable_path(exe_path: str) -> bool:
     try:
         # Normalize the path
         normalized_path = os.path.normpath(exe_path)
-        
+
         # Check if path is absolute
         if not os.path.isabs(normalized_path):
             return False
-        
+
         # Check for path traversal attempts
         if ".." in normalized_path or "~" in normalized_path:
             return False
-        
+
         # Check for suspicious characters that could be used for injection
         suspicious_chars = ['&', '|', ';', '`', '$', '(', ')', '<', '>', '"', "'"]
         if any(char in normalized_path for char in suspicious_chars):
             return False
-        
+
         # Check if the executable exists and is actually a file
         if not os.path.isfile(normalized_path):
             return False
-        
+
         return True
-        
+
     except Exception as e:
         logger.warning(f"Error validating executable path: {e}")
         return False

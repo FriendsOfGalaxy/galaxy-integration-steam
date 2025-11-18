@@ -13,10 +13,10 @@ class HttpClient:
 
     async def close(self):
         await self._session.close()
-    
+
     async def _request(self, method, url, *args, **kwargs):
         with handle_exception():
             return await self._session.request(method, url, *args, **kwargs)
-    
+
     async def get(self, url, *args, **kwargs):
         return await self._request("GET", url, *args, **kwargs)

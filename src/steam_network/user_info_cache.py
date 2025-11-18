@@ -3,7 +3,7 @@ import base64
 import logging
 from typing import Optional, Dict
 
-from .secure_credential_storage import SecureCredentialStorage, CredentialMigration
+from .secure_credential_storage import SecureCredentialStorage
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +42,7 @@ class UserInfoCache:
                 'account_username': self._account_username,
                 'persona_name': self._persona_name,
             }
-            creds = SecureCredentialStorage.encrypt_credentials(raw_creds)
+            creds = SecureCredentialStorage.encrypt_credentials_v3(raw_creds)
         return creds
 
     def from_dict(self, lookup: Dict[str, str]):
@@ -50,16 +50,10 @@ class UserInfoCache:
         if not lookup:
             return
         
-        # Try to migrate credentials first
+        # Decrypt credentials with automatic format detection
+        # decrypt_credentials() detects format (v2, v3, or Base64) and decrypts accordingly
         try:
-            migrated_creds = CredentialMigration.migrate_credentials(lookup)
-        except Exception as e:
-            logger.warning(f"Failed to migrate credentials: {e}")
-            migrated_creds = lookup
-        
-        # Try to decrypt credentials
-        try:
-            decrypted_creds = SecureCredentialStorage.decrypt_credentials(migrated_creds)
+            decrypted_creds = SecureCredentialStorage.decrypt_credentials(lookup)
             
             # Load decrypted values
             if 'steam_id' in decrypted_creds:

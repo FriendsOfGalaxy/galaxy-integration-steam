@@ -74,8 +74,8 @@ def avatar_url_from_avatar_hash(a_hash: str):
 
 
 class SteamNetworkBackend(BackendInterface):
-    def __init__(self, http_client: HttpClient, ssl_context: ssl.SSLContext, 
-                 persistent_storage_state: PersistentCacheState, persistent_cache: Dict[str, Any], update_user_presence: Callable[[UserPresence], None], 
+    def __init__(self, http_client: HttpClient, ssl_context: ssl.SSLContext,
+                 persistent_storage_state: PersistentCacheState, persistent_cache: Dict[str, Any], update_user_presence: Callable[[UserPresence], None],
                  store_credentials: Callable[[Dict[str, Any]], None], add_game: Callable[[Game], None]):
 
         self._add_game : Callable[[Game], None] = add_game
@@ -118,9 +118,9 @@ class SteamNetworkBackend(BackendInterface):
 
         self._update_owned_games_task : Task[None] = asyncio.create_task(asyncio.sleep(0))
         self._owned_games_parsed : bool = False
-        
+
         self._load_persistent_cache()
-    
+
     def _load_persistent_cache(self):
         if "games" in self._persistent_cache:
             self._games_cache.loads(self._persistent_cache["games"])
@@ -182,7 +182,7 @@ class SteamNetworkBackend(BackendInterface):
         fallbackData = {}
         if len(allowed_methods) > 1:
             fallback_meth, fallback_message = allowed_methods[1]
-        
+
             if (fallback_meth == TwoFactorMethod.PhoneCode):
                 fallbackData["fallbackMethod"] = DisplayUriHelper.TWO_FACTOR_MOBILE.to_view_string()
                 fallbackData["fallbackMsg"] = fallback_message
@@ -205,7 +205,7 @@ class SteamNetworkBackend(BackendInterface):
             allowed_methods = self._authentication_cache.two_factor_allowed_methods
             fallback_data = self._get_mobile_confirm_kwargs(allowed_methods)
 
-            return await self._handle_steam_guard_check(DisplayUriHelper.TWO_FACTOR_CONFIRM, True, **fallback_data) #go back to confirm. 
+            return await self._handle_steam_guard_check(DisplayUriHelper.TWO_FACTOR_CONFIRM, True, **fallback_data) #go back to confirm.
         else:
             logger.warning("Unexpected state in pass_login_credentials")
             raise UnknownBackendResponse()
@@ -230,7 +230,7 @@ class SteamNetworkBackend(BackendInterface):
         await self._websocket_client.communication_queues["websocket"].put({'mode': AuthCall.RSA_AND_LOGIN, 'username' : user, 'password' : pws })
         result = await self._get_websocket_auth_step()
         if (result == UserActionRequired.NoActionConfirmLogin):
-            #we still don't have the 2FA Confirmation. that's actually required for NoAction, but instead of waiting for us to input 2FA, it immediately returns what we need. 
+            #we still don't have the 2FA Confirmation. that's actually required for NoAction, but instead of waiting for us to input 2FA, it immediately returns what we need.
             return await self._handle_steam_guard_none()
         elif (result == UserActionRequired.TwoFactorRequired):
             allowed_methods = self._authentication_cache.two_factor_allowed_methods
@@ -248,7 +248,7 @@ class SteamNetworkBackend(BackendInterface):
                 raise UnknownBackendResponse()
         else:
             return next_step_response_simple(DisplayUriHelper.LOGIN, True)
-        #result here should be password, or unathorized. 
+        #result here should be password, or unathorized.
 
     async def _handle_steam_guard(self, credentials: Dict[str, str], method: TwoFactorMethod, fallback: DisplayUriHelper) -> Union[NextStep, Authentication]:
         parsed_url: parse.SplitResult = parse.urlsplit(credentials["end_uri"])
@@ -295,9 +295,9 @@ class SteamNetworkBackend(BackendInterface):
             raise UnknownBackendResponse()
 
     #in the case of confirm, this needs to be called directly, because the user clicks a button saying "i confirmed it on steam's end"
-    #but, to handle edge cases (expired, they lied), we need to potentially display a page again. 
+    #but, to handle edge cases (expired, they lied), we need to potentially display a page again.
     async def _handle_2FA_PollOnce(self, is_confirm : bool = False) -> UserActionRequired:
-        """ Poll the steam authentication to see if we are logged in yet, and return whatever action is required. 
+        """ Poll the steam authentication to see if we are logged in yet, and return whatever action is required.
 
         If the poll succeeds, but we aren't logged in yet (waiting on a code or mobile confirm), it returns UserActionRequired.NoActionConfirmLogin
         If the poll succeeds and we are logged in, it returns UserActionRequired.NoActionConfirmToken
@@ -310,7 +310,7 @@ class SteamNetworkBackend(BackendInterface):
         return await self._get_websocket_auth_step()
 
     async def _finish_auth_process(self) -> Authentication:
-        """ Essentially, call the classic Client.Login and get all the messages back we normally would. 
+        """ Essentially, call the classic Client.Login and get all the messages back we normally would.
 
 
         """
@@ -332,7 +332,7 @@ class SteamNetworkBackend(BackendInterface):
             return next_step_response_simple(DisplayUriHelper.LOGIN)
         else:
             return await self._authenticate_with_stored_credentials(stored_credentials)
-    
+
     async def _authenticate_with_stored_credentials(self, stored_credentials) -> Union[NextStep, Authentication]:
 
         self._user_info_cache.from_dict(stored_credentials)

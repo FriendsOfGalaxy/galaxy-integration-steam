@@ -5,9 +5,9 @@ from unittest.mock import patch, MagicMock
 from steam_network.user_info_cache import UserInfoCache
 from steam_network.secure_credential_storage import (
     SecureCredentialStorage,
-    CredentialMigration,
     KEY_FORMAT_VERSION,
-    FORMAT_VERSION_V2_ENCRYPTED
+    FORMAT_VERSION_V2_ENCRYPTED,
+    FORMAT_VERSION_V3_ENCRYPTED
 )
 
 _STEAM_ID = 123
@@ -24,20 +24,38 @@ legacy_serialized_creds = {
     'persona_name': base64.b64encode(_PERSONA_NAME.encode()).decode()
 }
 
-# New encrypted format
+# V2 encrypted format
+encrypted_serialized_creds_v2 = {
+    'steam_id': 'encrypted_steam_id_data_v2',
+    'refresh_token': 'encrypted_refresh_token_data_v2',
+    'account_username': 'encrypted_account_username_data_v2',
+    'persona_name': 'encrypted_persona_name_data_v2',
+    KEY_FORMAT_VERSION: FORMAT_VERSION_V2_ENCRYPTED
+}
+
+# V3 encrypted format (current default)
 encrypted_serialized_creds = {
     'steam_id': 'encrypted_steam_id_data',
     'refresh_token': 'encrypted_refresh_token_data',
     'account_username': 'encrypted_account_username_data',
     'persona_name': 'encrypted_persona_name_data',
-    KEY_FORMAT_VERSION: FORMAT_VERSION_V2_ENCRYPTED
+    KEY_FORMAT_VERSION: FORMAT_VERSION_V3_ENCRYPTED
 }
 
 
 def test_credentials_cache_store_encrypted():
-    """Test storing credentials with new encrypted format"""
-    with patch.object(SecureCredentialStorage, 'encrypt_credentials') as mock_encrypt:
-        mock_encrypt.return_value = encrypted_serialized_creds
+    """Test storing credentials with v3 encrypted format (current default)"""
+    # Create v3 encrypted format for the test
+    encrypted_serialized_creds_v3 = {
+        'steam_id': 'encrypted_steam_id_data',
+        'refresh_token': 'encrypted_refresh_token_data',
+        'account_username': 'encrypted_account_username_data',
+        'persona_name': 'encrypted_persona_name_data',
+        KEY_FORMAT_VERSION: FORMAT_VERSION_V3_ENCRYPTED
+    }
+    
+    with patch.object(SecureCredentialStorage, 'encrypt_credentials_v3') as mock_encrypt:
+        mock_encrypt.return_value = encrypted_serialized_creds_v3
         
         user_info_cache = UserInfoCache()
         user_info_cache.steam_id = _STEAM_ID
@@ -48,13 +66,13 @@ def test_credentials_cache_store_encrypted():
         assert user_info_cache.initialized.is_set()
         
         result = user_info_cache.to_dict()
-        assert result == encrypted_serialized_creds
+        assert result == encrypted_serialized_creds_v3
         assert KEY_FORMAT_VERSION in result
-        assert result[KEY_FORMAT_VERSION] == FORMAT_VERSION_V2_ENCRYPTED
+        assert result[KEY_FORMAT_VERSION] == FORMAT_VERSION_V3_ENCRYPTED
 
 
 def test_credentials_cache_load_encrypted():
-    """Test loading credentials from new encrypted format"""
+    """Test loading credentials from encrypted format (v2)"""
     with patch.object(SecureCredentialStorage, 'decrypt_credentials') as mock_decrypt:
         mock_decrypt.return_value = {
             'steam_id': str(_STEAM_ID),
@@ -72,76 +90,65 @@ def test_credentials_cache_load_encrypted():
         assert user_info_cache.refresh_token == _REFRESH_TOKEN
 
 
-def test_credentials_cache_load_legacy_migration():
-    """Test loading and migrating legacy Base64 credentials"""
-    with patch.object(CredentialMigration, 'migrate_credentials') as mock_migrate:
-        mock_migrate.return_value = encrypted_serialized_creds
+def test_credentials_cache_load_legacy_base64():
+    """Test loading legacy Base64 credentials (no format version, assumed Base64)"""
+    with patch.object(SecureCredentialStorage, 'decrypt_credentials') as mock_decrypt:
+        # decrypt_credentials should decode Base64 when no format version is present
+        mock_decrypt.return_value = {
+            'steam_id': str(_STEAM_ID),
+            'account_username': _ACCOUNT_USERNAME,
+            'persona_name': _PERSONA_NAME,
+            'refresh_token': _REFRESH_TOKEN
+        }
         
-        with patch.object(SecureCredentialStorage, 'decrypt_credentials') as mock_decrypt:
-            mock_decrypt.return_value = {
-                'steam_id': str(_STEAM_ID),
-                'account_username': _ACCOUNT_USERNAME,
-                'persona_name': _PERSONA_NAME,
-                'refresh_token': _REFRESH_TOKEN
-            }
-            
-            user_info_cache = UserInfoCache()
-            user_info_cache.from_dict(legacy_serialized_creds)
+        user_info_cache = UserInfoCache()
+        user_info_cache.from_dict(legacy_serialized_creds)
 
-            # Verify migration was called
-            mock_migrate.assert_called_once_with(legacy_serialized_creds)
-            
-            # Verify decryption was called with migrated data
-            mock_decrypt.assert_called_once_with(encrypted_serialized_creds)
+        # Verify decrypt_credentials was called directly (no migration)
+        mock_decrypt.assert_called_once_with(legacy_serialized_creds)
 
-            assert user_info_cache.steam_id == _STEAM_ID
-            assert user_info_cache.account_username == _ACCOUNT_USERNAME
-            assert user_info_cache.persona_name == _PERSONA_NAME
-            assert user_info_cache.refresh_token == _REFRESH_TOKEN
-
-
-def test_credentials_cache_load_migration_failure():
-    """Test graceful handling of migration failure"""
-    with patch.object(CredentialMigration, 'migrate_credentials') as mock_migrate:
-        mock_migrate.side_effect = Exception("Migration failed")
-        
-        with patch.object(SecureCredentialStorage, 'decrypt_credentials') as mock_decrypt:
-            mock_decrypt.return_value = {
-                'steam_id': str(_STEAM_ID),
-                'account_username': _ACCOUNT_USERNAME,
-                'persona_name': _PERSONA_NAME,
-                'refresh_token': _REFRESH_TOKEN
-            }
-            
-            user_info_cache = UserInfoCache()
-            user_info_cache.from_dict(legacy_serialized_creds)
-
-            # Should fall back to original credentials
-            mock_decrypt.assert_called_once_with(legacy_serialized_creds)
-
-            assert user_info_cache.steam_id == _STEAM_ID
-            assert user_info_cache.account_username == _ACCOUNT_USERNAME
-            assert user_info_cache.persona_name == _PERSONA_NAME
-            assert user_info_cache.refresh_token == _REFRESH_TOKEN
+        assert user_info_cache.steam_id == _STEAM_ID
+        assert user_info_cache.account_username == _ACCOUNT_USERNAME
+        assert user_info_cache.persona_name == _PERSONA_NAME
+        assert user_info_cache.refresh_token == _REFRESH_TOKEN
 
 
 def test_credentials_cache_load_decryption_failure():
     """Test graceful handling of decryption failure"""
-    with patch.object(CredentialMigration, 'migrate_credentials') as mock_migrate:
-        mock_migrate.return_value = encrypted_serialized_creds
+    with patch.object(SecureCredentialStorage, 'decrypt_credentials') as mock_decrypt:
+        mock_decrypt.return_value = {
+            'steam_id': str(_STEAM_ID),
+            'account_username': _ACCOUNT_USERNAME,
+            'persona_name': _PERSONA_NAME,
+            'refresh_token': _REFRESH_TOKEN
+        }
         
-        with patch.object(SecureCredentialStorage, 'decrypt_credentials') as mock_decrypt:
-            mock_decrypt.side_effect = Exception("Decryption failed")
-            
-            user_info_cache = UserInfoCache()
-            user_info_cache.from_dict(encrypted_serialized_creds)
+        user_info_cache = UserInfoCache()
+        user_info_cache.from_dict(legacy_serialized_creds)
 
-            # Should not crash, credentials should remain uninitialized
-            assert user_info_cache.steam_id is None
-            assert user_info_cache.account_username is None
-            assert user_info_cache.persona_name is None
-            assert user_info_cache.refresh_token is None
-            assert not user_info_cache.initialized.is_set()
+        # Should attempt decryption with original credentials
+        mock_decrypt.assert_called_once_with(legacy_serialized_creds)
+
+        assert user_info_cache.steam_id == _STEAM_ID
+        assert user_info_cache.account_username == _ACCOUNT_USERNAME
+        assert user_info_cache.persona_name == _PERSONA_NAME
+        assert user_info_cache.refresh_token == _REFRESH_TOKEN
+
+
+def test_credentials_cache_load_decryption_error():
+    """Test graceful handling of decryption error"""
+    with patch.object(SecureCredentialStorage, 'decrypt_credentials') as mock_decrypt:
+        mock_decrypt.side_effect = Exception("Decryption failed")
+        
+        user_info_cache = UserInfoCache()
+        user_info_cache.from_dict(encrypted_serialized_creds)
+
+        # Should not crash, credentials should remain uninitialized
+        assert user_info_cache.steam_id is None
+        assert user_info_cache.account_username is None
+        assert user_info_cache.persona_name is None
+        assert user_info_cache.refresh_token is None
+        assert not user_info_cache.initialized.is_set()
 
 
 def test_credentials_cache_load_empty_dict():
@@ -178,7 +185,7 @@ def test_credentials_cache_to_dict_empty():
 
 def test_credentials_cache_roundtrip():
     """Test complete roundtrip: store -> load"""
-    with patch.object(SecureCredentialStorage, 'encrypt_credentials') as mock_encrypt:
+    with patch.object(SecureCredentialStorage, 'encrypt_credentials_v3') as mock_encrypt:
         with patch.object(SecureCredentialStorage, 'decrypt_credentials') as mock_decrypt:
             # Setup mocks
             mock_encrypt.return_value = encrypted_serialized_creds
@@ -220,68 +227,109 @@ def test_access_token_property():
     assert 'access_token' not in user_info_cache.to_dict()
 
 
-# Additional tests for migration functionality
-
-
-def test_credential_migration_base64_to_encrypted():
-    """Test migration from Base64 to encrypted format"""
-    with patch.object(SecureCredentialStorage, 'encrypt_credentials') as mock_encrypt:
-        mock_encrypt.return_value = encrypted_serialized_creds
-        
-        result = CredentialMigration._migrate_from_base64(legacy_serialized_creds)
-        
-        # Verify encryption was called with decoded data
-        expected_decoded = {
-            'steam_id': '123',
-            'account_username': '😋学中文Не́кот',
-            'persona_name': 'Ptester',
-            'refresh_token': 'refresh_token'
+# Tests for v3 encryption and format detection
+def test_credentials_cache_load_v2_encrypted():
+    """Test loading v2 encrypted credentials (should work via decrypt_credentials())"""
+    with patch.object(SecureCredentialStorage, 'decrypt_credentials') as mock_decrypt:
+        mock_decrypt.return_value = {
+            'steam_id': str(_STEAM_ID),
+            'account_username': _ACCOUNT_USERNAME,
+            'persona_name': _PERSONA_NAME,
+            'refresh_token': _REFRESH_TOKEN
         }
-        mock_encrypt.assert_called_once_with(expected_decoded)
         
-        # Verify result has version info
-        assert result[KEY_FORMAT_VERSION] == FORMAT_VERSION_V2_ENCRYPTED
+        user_info_cache = UserInfoCache()
+        user_info_cache.from_dict(encrypted_serialized_creds_v2)
+
+        # Verify decrypt_credentials was called with v2 credentials
+        mock_decrypt.assert_called_once_with(encrypted_serialized_creds_v2)
+
+        assert user_info_cache.steam_id == _STEAM_ID
+        assert user_info_cache.account_username == _ACCOUNT_USERNAME
+        assert user_info_cache.persona_name == _PERSONA_NAME
+        assert user_info_cache.refresh_token == _REFRESH_TOKEN
 
 
-def test_credential_migration_already_encrypted():
-    """Test that already encrypted credentials are not migrated"""
-    result = CredentialMigration.migrate_credentials(encrypted_serialized_creds)
-    assert result == encrypted_serialized_creds
+def test_credentials_cache_load_v3_encrypted():
+    """Test loading v3 encrypted credentials"""
+    with patch.object(SecureCredentialStorage, 'decrypt_credentials') as mock_decrypt:
+        mock_decrypt.return_value = {
+            'steam_id': str(_STEAM_ID),
+            'account_username': _ACCOUNT_USERNAME,
+            'persona_name': _PERSONA_NAME,
+            'refresh_token': _REFRESH_TOKEN
+        }
+        
+        user_info_cache = UserInfoCache()
+        user_info_cache.from_dict(encrypted_serialized_creds)
+
+        # Verify decrypt_credentials was called with v3 credentials
+        mock_decrypt.assert_called_once_with(encrypted_serialized_creds)
+
+        assert user_info_cache.steam_id == _STEAM_ID
+        assert user_info_cache.account_username == _ACCOUNT_USERNAME
+        assert user_info_cache.persona_name == _PERSONA_NAME
+        assert user_info_cache.refresh_token == _REFRESH_TOKEN
 
 
-def test_credential_migration_empty_credentials():
-    """Test migration with empty credentials"""
-    result = CredentialMigration.migrate_credentials({})
-    assert result == {}
+def test_decrypt_credentials_v2_format():
+    """Test decrypt_credentials() detects v2 format correctly"""
+    with patch.object(SecureCredentialStorage, 'decrypt_credentials_v2') as mock_decrypt_v2:
+        mock_decrypt_v2.return_value = {
+            'steam_id': str(_STEAM_ID),
+            'account_username': _ACCOUNT_USERNAME,
+            'persona_name': _PERSONA_NAME,
+            'refresh_token': _REFRESH_TOKEN
+        }
+        
+        result = SecureCredentialStorage.decrypt_credentials(encrypted_serialized_creds_v2)
+        
+        # Should call v2 decrypt method
+        mock_decrypt_v2.assert_called_once_with(encrypted_serialized_creds_v2)
+        assert result['steam_id'] == str(_STEAM_ID)
 
 
-def test_credential_migration_unknown_format():
-    """Test migration with unknown format (treated as Base64)"""
+def test_decrypt_credentials_v3_format():
+    """Test decrypt_credentials() detects v3 format correctly"""
+    with patch.object(SecureCredentialStorage, 'decrypt_credentials_v3') as mock_decrypt_v3:
+        mock_decrypt_v3.return_value = {
+            'steam_id': str(_STEAM_ID),
+            'account_username': _ACCOUNT_USERNAME,
+            'persona_name': _PERSONA_NAME,
+            'refresh_token': _REFRESH_TOKEN
+        }
+        
+        result = SecureCredentialStorage.decrypt_credentials(encrypted_serialized_creds)
+        
+        # Should call v3 decrypt method
+        mock_decrypt_v3.assert_called_once_with(encrypted_serialized_creds)
+        assert result['steam_id'] == str(_STEAM_ID)
+
+
+def test_decrypt_credentials_base64_format():
+    """Test decrypt_credentials() handles Base64 format (no format version)"""
+    result = SecureCredentialStorage.decrypt_credentials(legacy_serialized_creds)
+        
+    # Should decode Base64
+    assert result['steam_id'] == str(_STEAM_ID)
+    assert result['account_username'] == _ACCOUNT_USERNAME
+    assert result['persona_name'] == _PERSONA_NAME
+    assert result['refresh_token'] == _REFRESH_TOKEN
+
+
+def test_decrypt_credentials_unknown_format():
+    """Test decrypt_credentials() handles unknown format version as Base64"""
     unknown_creds = {
-        'steam_id': 'some_unknown_format',
-        'account_username': 'testuser'
+        'steam_id': base64.b64encode(str(_STEAM_ID).encode()).decode(),
+        'refresh_token': base64.b64encode(_REFRESH_TOKEN.encode()).decode(),
+        KEY_FORMAT_VERSION: 'unknown_format_version'
     }
     
-    with patch.object(SecureCredentialStorage, 'encrypt_credentials') as mock_encrypt:
-        mock_encrypt.return_value = encrypted_serialized_creds
-        
-        # Unknown format should be treated as Base64 and migrated
-        result = CredentialMigration.migrate_credentials(unknown_creds)
-        
-        # Should have been encrypted (treated as Base64)
-        assert KEY_FORMAT_VERSION in result
-        assert result[KEY_FORMAT_VERSION] == FORMAT_VERSION_V2_ENCRYPTED
-
-
-def test_credential_migration_failure_handling():
-    """Test migration failure handling"""
-    with patch.object(SecureCredentialStorage, 'encrypt_credentials') as mock_encrypt:
-        mock_encrypt.side_effect = Exception("Encryption failed")
-        
-        result = CredentialMigration._migrate_from_base64(legacy_serialized_creds)
-        
-        # Should return original credentials on failure
-        assert result == legacy_serialized_creds
+    result = SecureCredentialStorage.decrypt_credentials(unknown_creds)
+    
+    # Should treat as Base64
+    assert result['steam_id'] == str(_STEAM_ID)
+    assert result['refresh_token'] == _REFRESH_TOKEN
 
 
 def test_user_info_cache_initialization_state():

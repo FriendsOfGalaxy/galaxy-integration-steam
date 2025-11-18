@@ -68,7 +68,7 @@ def create_plugin(mocker, http_client_mock):
         mock_task.done = MagicMock(return_value=True)
         mocker.patch('asyncio.create_task', return_value=mock_task)
         mocker.patch('asyncio.sleep', return_value=async_return_value(None))
-        
+
         mocker.patch('plugin.HttpClient', return_value=http_client_mock)
         mocker.patch("plugin.local_games_list", return_value=[])
         plugin = SteamPlugin(MagicMock(), writer, None)

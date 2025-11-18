@@ -22,11 +22,11 @@ async def test_ensure_version_is_cached_on_pass_login_credentials(
 ):
     current_plugin_version = "2.2.10"
     mocker.patch("plugin.__version__", current_plugin_version)
-    
+
     # Mock the backend's pass_login_credentials method
-    mocker.patch('backend_steam_network.SteamNetworkBackend.pass_login_credentials', 
+    mocker.patch('backend_steam_network.SteamNetworkBackend.pass_login_credentials',
                  new_callable=AsyncMock)
-    
+
     plugin = create_plugin_with_backend(connected_on_version=initial_version)
 
     await plugin.pass_login_credentials(
@@ -34,7 +34,7 @@ async def test_ensure_version_is_cached_on_pass_login_credentials(
         Mock(dict, name="credentials"),
         Mock(dict, name="cookies")
     )
-    
+
     assert plugin.persistent_cache[FIRST_SETUP_VERSION_CACHE] == current_plugin_version
 
 
@@ -45,7 +45,7 @@ async def test_do_not_cache_version_on_authenticate(
     current_plugin_version = "2.2.10"
     initial_version = "1.2.9"
     mocker.patch("plugin.__version__", current_plugin_version)
-    
+
     # Mock the websocket client to prevent actual authentication
     websocket_client_mock = mocker.MagicMock()
     websocket_client_mock.communication_queues = {
@@ -56,7 +56,7 @@ async def test_do_not_cache_version_on_authenticate(
     websocket_client_mock.close = AsyncMock()
     websocket_client_mock.wait_closed = AsyncMock()
     mocker.patch('backend_steam_network.WebSocketClient', return_value=websocket_client_mock)
-    
+
     plugin = create_plugin_with_backend(connected_on_version=initial_version)
 
     # Mock stored_credentials as a proper dictionary with base64 encoded values
@@ -67,13 +67,13 @@ async def test_do_not_cache_version_on_authenticate(
         'refresh_token': base64.b64encode('test_token'.encode('utf-8')).decode('utf-8'),
         'account_username': base64.b64encode('test_account'.encode('utf-8')).decode('utf-8')
     }
-    
+
     # Mock the authentication to return a successful result
     websocket_client_mock.communication_queues['plugin'].get.return_value = {
         'auth_result': 'NoActionRequired'
     }
-    
+
     await plugin.authenticate(stored_credentials=stored_credentials)
-    
+
     # Verify that the cached version remains the initial version, not the current version
     assert plugin.persistent_cache[FIRST_SETUP_VERSION_CACHE] == initial_version

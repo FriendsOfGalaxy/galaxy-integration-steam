@@ -1,5 +1,9 @@
-__version__ = "1.1"
+__version__ = "1.3"
 __changelog__ = {
+    "1.3": """
+    - Changes to credential encryption method, reduce relogin requests in the future
+    - Bump version to override manually installed versions
+    """,
     "1.1": """
     - Fixes authorization flow after Steam changed their auth flow
     - Fixes issues on large game libraries
