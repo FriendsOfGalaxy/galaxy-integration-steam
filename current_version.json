@@ -1,12 +1,12 @@
 {
-    "tag_name": "v1.3",
+    "tag_name": "v2.0",
     "assets": [
         {
-            "browser_download_url": "https://github.com/FriendsOfGalaxy/galaxy-integration-steam/releases/download/v1.3/windows.zip",
+            "browser_download_url": "https://github.com/FriendsOfGalaxy/galaxy-integration-steam/releases/download/v2.0/windows.zip",
             "name": "windows.zip"
         },
         {
-            "browser_download_url": "https://github.com/FriendsOfGalaxy/galaxy-integration-steam/releases/download/v1.3/macos.zip",
+            "browser_download_url": "https://github.com/FriendsOfGalaxy/galaxy-integration-steam/releases/download/v2.0/macos.zip",
             "name": "macos.zip"
         }
     ]
