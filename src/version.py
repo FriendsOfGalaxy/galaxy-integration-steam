@@ -1,5 +1,10 @@
-__version__ = "1.3"
+__version__ = "2.0"
+__branch__ = "galaxy-2.1"
 __changelog__ = {
+    "2.0": """
+    - Upgrade to Python 3.13
+    - Upgrade dependencies
+    """,
     "1.3": """
     - Changes to credential encryption method, reduce relogin requests in the future
     - Bump version to override manually installed versions

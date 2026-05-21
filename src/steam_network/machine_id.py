@@ -37,6 +37,28 @@ def __safe_get_node() -> str:
         logger.warning(f"Failed to get node: {e}")
         return "fallback"
 
+# Backward compatibility alias for protocol_client.py
+machine_id = machine_id_v2
+
+def machine_id_v3() -> bytes:
+    """Generate machine ID v3 (Python version independent)"""
+    # Exclude platform.uname() to avoid Python version dependencies
+    return hashlib.sha256(f"{os.getlogin()}|{__safe_get_node()}|{__system_id()}".encode()).digest()
+
+# Backward compatibility alias for protocol_client.py
+machine_id = machine_id_v3
+
+def __safe_get_node() -> str:
+    try:
+        node = uuid.getnode()
+        if node != uuid.getnode():
+            logger.warning("getnode is not deterministic, using fallback")
+            return "fallback"
+        return str(node)
+    except Exception as e:
+        logger.warning(f"Failed to get node: {e}")
+        return "fallback"
+
 def __system_id_impl() -> bytes:
     """Internal implementation to get system ID by calling platform-specific commands."""
     try:

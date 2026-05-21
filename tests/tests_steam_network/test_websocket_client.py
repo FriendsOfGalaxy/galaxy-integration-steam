@@ -4,6 +4,7 @@ import asyncio
 
 import pytest
 import websockets
+from websockets.frames import Close
 from galaxy.api.errors import (
     AccessDenied,
     BackendNotAvailable,
@@ -300,8 +301,9 @@ async def test_websocket_close_reconnect(
         aiter(["wss://abc.com/websocket"]),
         aiter(["wss://abc.com/websocket"]),
     ]
+    close_frame = Close(code=1002, reason="")
     protocol_client.run.side_effect = [
-        async_raise(websockets.ConnectionClosedError(1002, ""), 10),
+        async_raise(websockets.ConnectionClosedError(close_frame, None), 10),
         async_raise(AssertionError),
     ]
     # Set up communication queues (needed for the client to work)
@@ -412,7 +414,7 @@ async def test_servers_cache_failure(client, protocol_client, websocket_list):
     [
         asyncio.TimeoutError(),
         IOError(),
-        websockets.InvalidURI("wss://websocket_1"),
+        websockets.InvalidURI("wss://websocket_1", "Invalid URI"),
         websockets.InvalidHandshake(),
     ],
 )
@@ -470,7 +472,7 @@ async def test_connect_error(
     [
         asyncio.TimeoutError(),
         IOError(),
-        websockets.InvalidURI("wss://websocket_1"),
+        websockets.InvalidURI("wss://websocket_1", "Invalid URI"),
         websockets.InvalidHandshake(),
     ],
 )

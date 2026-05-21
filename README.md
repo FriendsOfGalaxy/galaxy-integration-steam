@@ -1,6 +1,6 @@
 # Steam Integration
 
-GOG Galaxy 2.0 Community integration for Steam.
+GOG GALAXY 2.1 Community integration for Steam.
 
 ## Installation
 

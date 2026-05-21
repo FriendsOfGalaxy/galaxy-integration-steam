@@ -5,6 +5,7 @@ import websockets
 from galaxy.unittest.mock import AsyncMock
 from .pytest_asyncio_helpers import resolve_async_fixture
 from websockets.protocol import State
+from websockets.frames import Close
 
 from steam_network.protocol.protobuf_client import ProtobufClient
 
@@ -86,7 +87,8 @@ async def test_ensure_open_exception(client, socket_state, monkeypatch, mocker):
     mock_websocket.close_connection_task = MagicMock()
     mock_websocket.state = socket_state
     # Make ensure_open an AsyncMock that raises the appropriate exception
-    mock_websocket.ensure_open = AsyncMock(side_effect=websockets.ConnectionClosedError(1, "Close reason"))
+    close_frame = Close(code=1, reason="Close reason")
+    mock_websocket.ensure_open = AsyncMock(side_effect=websockets.ConnectionClosedError(close_frame, None))
     
     client = ProtobufClient(mock_websocket)
 

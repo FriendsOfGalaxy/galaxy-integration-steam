@@ -6,7 +6,6 @@ import requests
 import tempfile
 import zipfile
 from shutil import rmtree, copytree, copyfile
-from distutils.dir_util import copy_tree
 from glob import glob
 from io import BytesIO
 from urllib.request import urlopen
@@ -20,24 +19,23 @@ GUID = "ca27391f-2675-49b1-92c0-896d43afa4f8"
 system = platform.system()
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+SRC_DIR = os.path.join(BASE_DIR, "src")
+if SRC_DIR not in sys.path:
+    sys.path.insert(0, SRC_DIR)
+from metadata_loader import load_metadata
+metadata = load_metadata(BASE_DIR)
+
 PROTOC_DIR = os.path.join(BASE_DIR, "protoc")
 
 # Platform-specific protoc configuration
 if sys.platform == 'win32':
     PROTOC_EXE = os.path.join(PROTOC_DIR, "bin", "protoc.exe")
     PROTOC_INCLUDE_DIR = os.path.join(PROTOC_DIR, "include")
-    PROTOC_DOWNLOAD_URL = "https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protoc-3.19.4-win32.zip"
+    PROTOC_DOWNLOAD_URL = "https://github.com/protocolbuffers/protobuf/releases/download/v25.1/protoc-25.1-win32.zip"
 elif sys.platform == 'darwin':
     PROTOC_EXE = os.path.join(PROTOC_DIR, "bin", "protoc")
     PROTOC_INCLUDE_DIR = os.path.join(PROTOC_DIR, "include")
-    PROTOC_DOWNLOAD_URL = "https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protoc-3.19.4-osx-x86_64.zip"
-
-def load_version():
-    script_dir = os.path.abspath(os.path.dirname(__file__))
-    version_file = os.path.join(script_dir, "src", "version.py")
-    version = {}
-    exec(open(version_file).read(), version)
-    return version["__version__"]
+    PROTOC_DOWNLOAD_URL = "https://github.com/protocolbuffers/protobuf/releases/download/v25.1/protoc-25.1-osx-x86_64.zip"
 
 # Protobuf helper functions
 def _read_url(response: HTTPResponse) -> str:
@@ -109,10 +107,10 @@ def build(c, output="output", ziparchive=None):
 
     env = {}
     if system == "Windows":
-        pip_platform = "win32"
+        pip_platform = "win_amd64"
     elif system == "Darwin":
-        pip_platform = "macosx_10_13_x86_64"
-        env["MACOSX_DEPLOYMENT_TARGET"] = "10.13" # for building from sources
+        pip_platform = "macosx_13_0_universal2"
+        env["MACOSX_DEPLOYMENT_TARGET"] = "13.3" # for building from sources
     else:
         Exit(f"System {system} not supported")
 
@@ -131,7 +129,7 @@ def build(c, output="output", ziparchive=None):
     args = [
         'pip', 'install',
         '-r', tmp.name,
-        '--python-version', '37',
+        '--python-version', '313',
         '--platform', pip_platform,
         f'--target "{output}"',
         '--no-compile',
@@ -141,7 +139,8 @@ def build(c, output="output", ziparchive=None):
     os.unlink(tmp.name)
 
     print('--> Copying source files')
-    copy_tree("src", output)
+    # Use copytree instead of distutils.copy_tree (removed in Python 3.13)
+    copytree("src", output, dirs_exist_ok=True)
 
     # remove dependencies tests
     for test in glob(f"{output}/**/test_*.py", recursive=True):
@@ -165,12 +164,12 @@ def build(c, output="output", ziparchive=None):
         "name": "Galaxy Steam plugin",
         "platform": "steam",
         "guid": GUID,
-        "version": load_version(),
+        "version": metadata["__version__"],
         "description": "Galaxy Steam plugin",
         "author": "Friends of Galaxy",
         "email": "friendsofgalaxy@gmail.com",
         "url": "https://github.com/FriendsOfGalaxy/galaxy-integration-steam",
-        "update_url": "https://raw.githubusercontent.com/FriendsOfGalaxy/galaxy-integration-steam/master/current_version.json",
+        "update_url": f"https://raw.githubusercontent.com/FriendsOfGalaxy/galaxy-integration-steam/{metadata['__branch__']}/current_version.json",
         "script": "plugin.py"
     }
     with open(os.path.join(output, "manifest.json"), "w") as file_:
@@ -238,28 +237,32 @@ def pull_protobuf_files(c, silent=False):
 @task
 def clear_protobuf_files(c):
     """Clear downloaded protobuf files"""
-    filelist = [f for f in os.listdir("protobuf_files/proto") if f.endswith(".proto")]
+    protbuf_dir = _protobuf_target_dir()
+    filelist = [f for f in os.listdir(protbuf_dir) if f.endswith(".proto")]
     for f in filelist:
-        os.remove(os.path.join("protobuf_files/proto", f))
+        os.remove(os.path.join(protbuf_dir, f))
 
+
+def _generated_from_protobuf_files_target_dir() -> str:
+    return os.path.join(BASE_DIR, "src", "steam_network", "protocol", "messages")
 
 @task
 def generate_protobuf_messages(c):
     """Generate Python protobuf messages using local protoc"""
-    proto_files_dir = os.path.join(BASE_DIR, "protobuf_files", "proto")
+    proto_files_dir = _protobuf_target_dir()
 
-    out_dir = os.path.join(BASE_DIR, "src", "steam_network", "protocol", "messages")
+    out_dir = _generated_from_protobuf_files_target_dir()
 
     try:
-        rmtree(os.path.join(out_dir))
+        rmtree(out_dir)
     except Exception:
         pass  # directory probably just didn't exist
 
-    os.makedirs(os.path.join(out_dir), exist_ok=True)
+    os.makedirs(out_dir, exist_ok=True)
 
     # make sure __init__.py is there
-    with open(os.path.join(out_dir, "__init__.py"), "wb") as fp:
-        fp.write(b"")
+    with open(os.path.join(out_dir, "__init__.py"), "w") as fp:
+        fp.write("")
 
     all_files = " ".join(map(lambda x: '"' + os.path.join(proto_files_dir, x) + '"', os.listdir(proto_files_dir)))
     print(f'{PROTOC_EXE} -I "{proto_files_dir}" --python_out="{out_dir}" {all_files}')
@@ -267,9 +270,9 @@ def generate_protobuf_messages(c):
 
 
 @task
-def clear_generated_protobuf(c, genFile=True):
+def clear_generated_protobuf(c):
     """Clear generated protobuf Python files"""
-    out_dir = "./protobuf_files/gen/" if genFile else "src/steam_network/protocol/messages"
+    out_dir = _generated_from_protobuf_files_target_dir()
     filelist = [f for f in os.listdir(out_dir) if f.endswith(".py")]
     for f in filelist:
         os.remove(os.path.join(out_dir, f))
